@@ -1,16 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interpreter.bytecode;
 
+import interpreter.VirtualMachine;
+
 /**
- *
+ * Abstract class for bytcode
  * @author Michael
  */
 public abstract class ByteCode {
     
+   // public abstract void execute(VirtualMachine VM){
+        
+    //}
 }
 
-public 

@@ -1,6 +1,5 @@
 package interpreter;
-import interpreter.bytecode.CodeTable;
-import interpreter.bytecode.ByteCodeLoader;
+import interpreter.ByteCodeLoader;
 import java.io.*;
 /**
 * <pre>
