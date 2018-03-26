@@ -11,4 +11,8 @@ package interpreter.bytecode;
  */
 public class CallCode extends ByteCode{
     
+    @Override
+    public void init(String [] args){
+        
+    }
 }

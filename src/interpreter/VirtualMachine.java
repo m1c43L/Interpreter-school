@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interpreter;
 
 /**
- *
+ * Executes each byte code that is loaded into the program.
+ * Keeps track of the current position in the program.
+ * Holds a reference to the runtime stack. 
+ * 
  * @author Michael
  */
 public class VirtualMachine {
