@@ -2,7 +2,7 @@ package interpreter;
 import java.util.HashMap;
 
 /**
- *
+ * 
  * @author Michael
  */
 public class CodeTable {
@@ -25,6 +25,7 @@ public class CodeTable {
         byteCodeTable.put("RETURN", "ReturnCode");
         byteCodeTable.put("STORE", "StoreCode");
         byteCodeTable.put("WRITE", "WriteCode");    
+        byteCodeTable.put("DUMP", "DumpCode");
     }
     
     public static String get(String code)

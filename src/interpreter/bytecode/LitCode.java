@@ -5,10 +5,24 @@
  */
 package interpreter.bytecode;
 
+import interpreter.VirtualMachine;
+
 /**
  *
  * @author Michael
  */
 public class LitCode extends ByteCode{
+
+    private int value; 
+    
+    @Override
+    public void execute(VirtualMachine VM) {
+        VM.pushRunStack(value);
+    }
+
+    @Override
+    public void init(String[] args) {
+        value = Integer.parseInt(args[1]);
+    }
     
 }

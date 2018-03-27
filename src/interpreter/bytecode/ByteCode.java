@@ -1,5 +1,6 @@
 package interpreter.bytecode;
 
+import interpreter.Program;
 import interpreter.VirtualMachine;
 
 
@@ -8,11 +9,12 @@ import interpreter.VirtualMachine;
  * @author Michael
  */
 public abstract class ByteCode {
+  
     
    public abstract void execute(VirtualMachine VM);
-    public abstract void init(String [] args);
-    
-    
-    
+   
+   public abstract void init(String [] args);
+   
+
 }
 

@@ -23,21 +23,21 @@ public class ByteCodeLoader {
       
         try {
             while(codeFile.ready()){
-                String code = codeFile.readLine(); 
-                String codeClass = code.split("\\s+")[1];
                 
+                String code = codeFile.readLine();          
+                String codeClass = code.split("\\s+")[0];
+                //System.out.println(codeClass);
                 ByteCode byteCode = (ByteCode) 
-                        Class.forName(CodeTable.get(codeClass)).newInstance();
-                
-                //initialize bytecode with [] strings preceding the 
-                //byte code (eg. "1. LIT 2") ars will be [0] = 2
-                //since there only "2" after the LIT bytecode.
-                byteCode.init(code.substring(code.
-                        lastIndexOf(codeClass) + codeClass.length()).
-                        split("\\s+"));
-                
+                        Class.forName("interpreter.bytecode." + 
+                                CodeTable.get(codeClass)).newInstance();
+
+                byteCode.init(code.split("\\s+"));
+                byteCodeProgram.add(byteCode);
             }
+            
         } catch (Exception e) {}
+        
+        byteCodeProgram.resolveAddress();
         
         return byteCodeProgram;
     }
