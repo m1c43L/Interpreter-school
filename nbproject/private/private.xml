@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/PopCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/ByteCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/BopCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/StoreCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/HaltCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/ArgsCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/CodeTable.java</file>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/ReturnCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/FalseBranchCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/LabelCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/Interpreter.java</file>
@@ -17,7 +20,9 @@
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/ByteCodeLoader.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/CallCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/RunTimeStack.java</file>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/LitCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/Program.java</file>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/LoadCode.java</file>
         </group>
     </open-files>
 </project-private>

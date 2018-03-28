@@ -10,6 +10,7 @@ public class RunTimeStack {
     
     private Vector runStack;
     private Stack <Integer> framePointers;
+   
     
     
     public RunTimeStack(){
@@ -18,22 +19,40 @@ public class RunTimeStack {
         framePointers.push(0);
     }
     
-    public void dump(){
-       int counter = 0;
-        for(Object i: runStack){
-            
-            System.out.print((int)i + " ");
-            
+    /**
+     *  Arrange the data for debugging.
+     */
+    public void dump(){   
+      //make copy of framePointers, we dont want to mess the framePointers.
+      //Cast the object instance to Vector in order to freely access framePointers
+      
+      Vector <Integer> frameMarker =  new Vector(framePointers);
+      //System.out.println(framePointers + "<------");
+      StringBuffer frmLog = new StringBuffer("[");
+      int indexFM = 1;
+        for(int i = 0; i < runStack.size(); i++){
+            if(indexFM < frameMarker.size()  // when set up frame []
+                    && frameMarker.get(indexFM) == i
+                    && i > 0){
+                frmLog.deleteCharAt(frmLog.length() - 1);
+                frmLog.append("][");
+                indexFM++;
+            } 
+            frmLog.append(runStack.get(i)).append(",");          
         }
-        System.out.println();
+        frmLog.setCharAt(frmLog.length() - 1, ']');
+        
+        System.out.println( (runStack.isEmpty()) ? "[]": frmLog ); 
     }
+    
     
     public int peek(){
         return (int) runStack.lastElement();
     }
     
     public int pop(){
-        if(framePointers.peek() == runStack.size()-1) framePointers.pop();
+        if(framePointers.peek() == runStack.size() - 1 &&
+                framePointers.size() > 1) framePointers.pop();
         return (int) runStack.remove(runStack.size() - 1);
     }
     
@@ -50,24 +69,26 @@ public class RunTimeStack {
         int lastFramePos =  framePointers.pop();
         runStack.setElementAt(runStack.get(runStack.size() - 1), 
                 lastFramePos);
-        //remove exces values in the vector
+        //remove excess values in the vector
         for(int i = runStack.size()-1; i > lastFramePos; i--){
             runStack.remove(i);
         }
     }
     
     public int store(int offset){
-        runStack.set(offset, runStack.remove(runStack.size() - 1));
+        runStack.set(offset+framePointers.peek(), 
+                runStack.remove(runStack.size() - 1));
         return (int) runStack.get(offset);
     }
     
     public int load(int offset){
-        runStack.add(runStack.get(offset + framePointers.peek()));
+        //System.out.println(framePointers);
+        runStack.add(runStack.get(offset + framePointers.peek())); 
         return this.peek();
     }
     
     public Integer push(Integer i){
-        runStack.add(i.intValue());
+        runStack.add(i);
         return i;
     }
 }
