@@ -9,7 +9,7 @@ import java.util.*;
 public class RunTimeStack {
     
     private Vector runStack;
-    private Stack framePointers;
+    private Stack <Integer> framePointers;
     
     
     public RunTimeStack(){
@@ -19,8 +19,11 @@ public class RunTimeStack {
     }
     
     public void dump(){
+       int counter = 0;
         for(Object i: runStack){
-            System.out.print((int)i);
+            
+            System.out.print((int)i + " ");
+            
         }
         System.out.println();
     }
@@ -30,7 +33,8 @@ public class RunTimeStack {
     }
     
     public int pop(){
-        return (int) runStack.remove(runStack.size()-1);
+        if(framePointers.peek() == runStack.size()-1) framePointers.pop();
+        return (int) runStack.remove(runStack.size() - 1);
     }
     
     public int push(int i){
@@ -39,20 +43,26 @@ public class RunTimeStack {
     }
     
     public void newFrameAt(int offset){
-        framePointers.push(offset);
+        framePointers.push(runStack.size() - offset);
     }
     
     public void popFrame(){
-        runStack.add(framePointers.pop());
+        int lastFramePos =  framePointers.pop();
+        runStack.setElementAt(runStack.get(runStack.size() - 1), 
+                lastFramePos);
+        //remove exces values in the vector
+        for(int i = runStack.size()-1; i > lastFramePos; i--){
+            runStack.remove(i);
+        }
     }
     
     public int store(int offset){
-        runStack.set(offset, this.pop());
+        runStack.set(offset, runStack.remove(runStack.size() - 1));
         return (int) runStack.get(offset);
     }
     
     public int load(int offset){
-        runStack.add(runStack.get(offset));
+        runStack.add(runStack.get(offset + framePointers.peek()));
         return this.peek();
     }
     

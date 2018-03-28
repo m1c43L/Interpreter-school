@@ -10,10 +10,12 @@ import java.util.*;
 public class Program {
     
     private Vector <ByteCode> byteCodesList;
+    private HashMap <String,Integer> address;
 
     
     public Program(){
-        byteCodesList = new<ByteCode> Vector();
+        byteCodesList = new Vector();
+        address = new HashMap();
     }
     
     public void add(ByteCode byteCode){
@@ -25,20 +27,54 @@ public class Program {
     }
     
     public void resolveAddress(){
+        initAddress();
+        byteCodesList.forEach((code) -> {
+            if(code.getClass().equals(FalseBranchCode.class)){
+                ((FalseBranchCode)code).setAddress(this);
+            }else if(code.getClass().equals(GotoCode.class)){
+                ((GotoCode)code).setAddress(this);
+            }else if(code.getClass().equals(CallCode.class)){
+                ((CallCode)code).setAddress(this);
+            }
+        });   
+    }
+    
+    public int getAddress(String label){
+        return (int)address.get(label);
+    }
+    
+    private void initAddress(){
+        for(int addressIndx = 0; addressIndx < byteCodesList.size();
+                addressIndx++){
+            
+            if(getCode(addressIndx).getClass().equals(LabelCode.class)){
+                address.put(((LabelCode) getCode(addressIndx)).getLabel(),
+                        addressIndx);
+            }
+        } 
+    }
+    
+    
+    
+    
+    
+    
+    /*  tedious algorithm 
+    public void resolveAddress(){
         
         for(ByteCode byteCode: byteCodesList){
             
             if(byteCode.getClass().equals(FalseBranchCode.class)){
-                rsFalseBranchAdrs((FalseBranchCode)byteCode);
+                resFalseBranchAdrs((FalseBranchCode)byteCode);
             }else if(byteCode.getClass().equals(GotoCode.class)){
-                rsGotoAdrs((GotoCode) byteCode);
+                resGotoAdrs((GotoCode) byteCode);
             }else if(byteCode.getClass().equals(CallCode.class)){
-                rsCallAdrs((CallCode) byteCode);
+                resCallAdrs((CallCode) byteCode);
             }
         }
     }
     
-    private void rsFalseBranchAdrs(FalseBranchCode code){
+    private void resFalseBranchAdrs(FalseBranchCode code){
         
         for(int addrsPos = 0; addrsPos < byteCodesList.size(); addrsPos++){
             
@@ -56,7 +92,7 @@ public class Program {
         
     }
     
-    private void rsGotoAdrs(GotoCode code){
+    private void resGotoAdrs(GotoCode code){
         
         for(int addrsPos = 0; addrsPos < byteCodesList.size(); addrsPos++){
             
@@ -72,7 +108,7 @@ public class Program {
         }
     }
     
-    private void rsCallAdrs(CallCode code){
+    private void resCallAdrs(CallCode code){
         
         for(int addrsPos = 0; addrsPos < byteCodesList.size(); addrsPos++){
             
@@ -87,5 +123,6 @@ public class Program {
             }   
         }
     }
-    
+  
+*/
 }

@@ -13,14 +13,18 @@ import interpreter.VirtualMachine;
  */
 public class ReturnCode extends ByteCode{
 
+    String returnComment;
+    
+    
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        VM.returnPC();
+        VM.popFrameRunStack();
     }
 
     @Override
     public void init(String[] args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        returnComment = (args.length > 1)? args[1] : "";
     }
     
 }

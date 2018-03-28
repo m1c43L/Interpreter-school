@@ -20,20 +20,19 @@ public class CallCode extends ByteCode{
     
     @Override
     public void init(String [] args){
-        
+        label = args[1];
     }
 
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        VM.pushPC();
+        VM.jumpPC(address);
     }
     
-    public String getLabel(){
-        return label;
-    }
     
-    public void setAddress(int newAddress){
-        address = newAddress;
+    
+    public void setAddress(Program program){
+        address = program.getAddress(label);
     }
     
     

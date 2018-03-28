@@ -13,14 +13,18 @@ import interpreter.VirtualMachine;
  */
 public class PopCode extends ByteCode{
 
+    private int numPop;
+    
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(int i = 0; i < numPop; i++){
+            VM.popRunStack();
+        }
     }
 
     @Override
     public void init(String[] args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        numPop = Integer.parseInt(args[1]);
     }
     
 }

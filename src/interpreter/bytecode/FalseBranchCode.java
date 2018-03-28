@@ -5,6 +5,7 @@
  */
 package interpreter.bytecode;
 
+import interpreter.Program;
 import interpreter.VirtualMachine;
 
 /**
@@ -18,20 +19,22 @@ public class FalseBranchCode extends ByteCode{
     
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(VM.popRunStack() == 0){
+            VM.pushPC();
+            VM.jumpPC(address);
+        }
     }
 
     @Override
     public void init(String[] args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        label = args[1];
     }
     
-    public String getLabel(){
-        return label;
+    
+    public void setAddress(Program program){
+        address = program.getAddress(label);
     }
     
-    public void setAddress(int newAddress){
-        address = newAddress;
-    }
+   
     
 }

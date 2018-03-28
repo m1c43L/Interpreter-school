@@ -13,14 +13,19 @@ import interpreter.VirtualMachine;
  */
 public class StoreCode extends ByteCode{
 
+    private String id;
+    private int value;
+            
+    
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        VM.storeRunStack(value);
     }
 
     @Override
     public void init(String[] args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        value = Integer.parseInt(args[1]);
+        id = args[2];
     }
     
 }

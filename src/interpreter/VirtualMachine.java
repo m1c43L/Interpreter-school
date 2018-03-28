@@ -21,6 +21,7 @@ public class VirtualMachine {
     
     
     public VirtualMachine(Program newProgram){
+        returnAddrs = new Stack();
         program = newProgram;
         isDumping = false;
     }
@@ -73,8 +74,20 @@ public class VirtualMachine {
         isDumping = !isDumping;
     }
     
-    public void isRunningToFalse(){
+    public void haltExecution(){
         isRunning = false;
+    }
+    
+    public void pushPC(){
+        returnAddrs.push(pc);
+    }
+    
+    public void returnPC(){
+        pc = (int) returnAddrs.pop();
+    }
+    
+    public void jumpPC(int addrsIndex){
+        pc = addrsIndex;
     }
     
     

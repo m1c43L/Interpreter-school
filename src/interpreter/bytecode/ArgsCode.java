@@ -13,14 +13,16 @@ import interpreter.VirtualMachine;
  */
 public class ArgsCode extends ByteCode {
 
+    private int numArgs;
+    
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        VM.newFrameAtRunStack(numArgs);
     }
 
     @Override
     public void init(String[] args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        numArgs = Integer.parseInt(args[1]);
     }
     
 }

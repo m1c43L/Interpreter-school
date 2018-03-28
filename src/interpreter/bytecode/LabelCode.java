@@ -17,15 +17,15 @@ public class LabelCode extends ByteCode {
     
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void init(String[] args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        label = args[1];
     }
     
-    public boolean isEqual(String newLabel){
-        return newLabel.equals(label);
+    public String getLabel(){
+        return label;
     }
 }

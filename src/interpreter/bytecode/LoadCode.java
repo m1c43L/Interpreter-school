@@ -13,14 +13,19 @@ import interpreter.VirtualMachine;
  */
 public class LoadCode extends ByteCode{
 
+    private int offset;
+    private String id;   
+    
+    
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        VM.loadRunStack(offset);
     }
 
     @Override
     public void init(String[] args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        offset = Integer.parseInt(args[1]);
+        id = args[2];
     }
     
 }

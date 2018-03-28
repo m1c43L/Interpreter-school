@@ -20,6 +20,7 @@ public class CodeTable {
         byteCodeTable.put("HALT", "HaltCode");
         byteCodeTable.put("LIT", "LitCode");
         byteCodeTable.put("LOAD", "LoadCode");
+        byteCodeTable.put("LABEL", "LabelCode");
         byteCodeTable.put("POP", "PopCode");
         byteCodeTable.put("READ", "ReadCode");
         byteCodeTable.put("RETURN", "ReturnCode");

@@ -6,6 +6,7 @@
 package interpreter.bytecode;
 
 import interpreter.VirtualMachine;
+import java.util.*;
 
 /**
  *
@@ -13,14 +14,36 @@ import interpreter.VirtualMachine;
  */
 public class BopCode extends ByteCode {
 
+    private String operator;
+    
+    private int doOperation(int topLevel, int secondLevel){
+        switch(operator){
+            case "+"  : return secondLevel + topLevel;
+            case "-"  : return secondLevel - topLevel;
+            case "*"  : return secondLevel * topLevel;
+            case "/"  : return secondLevel / topLevel;
+            case "==" : return (secondLevel == topLevel)? 1 : 0;       
+            case "!=" : return (secondLevel != topLevel)? 1 : 0;
+            case "<=" : return (secondLevel <= topLevel)? 1 : 0;
+            case "<"  : return (secondLevel <  topLevel)? 1 : 0;
+            case ">=" : return (secondLevel >= topLevel)? 1 : 0;
+            case ">"  : return (secondLevel >  topLevel)? 1 : 0;
+            case "&"  : return (secondLevel == 1& topLevel == 1)? 1 : 0; 
+            case "|"  : return (secondLevel+topLevel > 0 &&
+                    secondLevel + topLevel<= 2)? 1 : 0;
+            
+            default: return 0;
+        }
+    }
+    
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        VM.pushRunStack(doOperation(VM.popRunStack(),VM.popRunStack()));
     }
 
     @Override
     public void init(String[] args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        operator = args[1];
     }
     
 }
