@@ -18,5 +18,10 @@ public class HaltCode extends ByteCode{
     public void init(String[] args) {
         
     }
+
+    @Override
+    public void dumpCode() {
+        System.out.println("HALT");
+    }
     
 }

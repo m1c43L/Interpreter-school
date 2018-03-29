@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interpreter.bytecode;
 
 import interpreter.VirtualMachine;
 
 /**
- *
+ * Set up new Frames
  * @author Michael
  */
 public class ArgsCode extends ByteCode {
@@ -17,19 +12,17 @@ public class ArgsCode extends ByteCode {
     
     @Override
     public void execute(VirtualMachine VM) {
-        VM.newFrameAtRunStack(numArgs);
-        
-        if(VM.isDumpingOn()){
-           System.out.println("ARGS " + numArgs);
-           VM.doDump();
-        }
-        
-        
+        VM.newFrameAtRunStack(numArgs);     
     }
 
     @Override
     public void init(String[] args) {
         numArgs = Integer.parseInt(args[1]);
+    }
+
+    @Override
+    public void dumpCode() {
+        System.out.println("ARGS " + numArgs);
     }
     
 }

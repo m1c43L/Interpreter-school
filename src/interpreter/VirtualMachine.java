@@ -33,13 +33,14 @@ public class VirtualMachine {
         while(isRunning){
             ByteCode code = program.getCode(pc);
             code.execute(this);
-            //if(isDumping) runStack.dump(); // check that operation is correct
+            if(isDumping){
+                code.dumpCode();
+                runStack.dump();
+            } // check that operation is correct
             pc++;
         }
     }
     
-    
-            
     public int peekRunStack(){
         return runStack.peek(); 
     }

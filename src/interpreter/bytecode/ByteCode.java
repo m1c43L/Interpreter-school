@@ -14,6 +14,7 @@ public abstract class ByteCode {
    public abstract void execute(VirtualMachine VM);
    
    public abstract void init(String [] args);
-
+   
+   public abstract void dumpCode();
 }
 

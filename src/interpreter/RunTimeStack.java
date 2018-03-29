@@ -3,7 +3,8 @@ package interpreter;
 import java.util.*;
 
 /**
- *
+ * Holds the runTimeStacks and frames 
+ * 
  * @author Michael
  */
 public class RunTimeStack {
@@ -21,6 +22,7 @@ public class RunTimeStack {
     
     /**
      *  Arrange the data for debugging.
+     *  Prints runStack Frames.
      */
     public void dump(){   
       //make copy of framePointers, we dont want to mess the framePointers.
@@ -50,9 +52,7 @@ public class RunTimeStack {
         return (int) runStack.lastElement();
     }
     
-    public int pop(){
-        if(framePointers.peek() == runStack.size() - 1 &&
-                framePointers.size() > 1) framePointers.pop();
+    public int pop(){     
         return (int) runStack.remove(runStack.size() - 1);
     }
     
@@ -66,11 +66,12 @@ public class RunTimeStack {
     }
     
     public void popFrame(){
-        int lastFramePos =  framePointers.pop();
+       int lastFramePos = framePointers.pop();
+       //append last item of this frame to the prev frame
         runStack.setElementAt(runStack.get(runStack.size() - 1), 
                 lastFramePos);
-        //remove excess values in the vector
-        for(int i = runStack.size()-1; i > lastFramePos; i--){
+        //remove excess values from the deleted frame
+        for(int i = runStack.size() - 1; i > lastFramePos; i--){
             runStack.remove(i);
         }
     }
@@ -78,6 +79,7 @@ public class RunTimeStack {
     public int store(int offset){
         runStack.set(offset+framePointers.peek(), 
                 runStack.remove(runStack.size() - 1));
+        
         return (int) runStack.get(offset);
     }
     

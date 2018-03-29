@@ -27,5 +27,11 @@ public class LoadCode extends ByteCode{
         offset = Integer.parseInt(args[1]);
         id = args[2];
     }
+
+    @Override
+    public void dumpCode() {
+        System.out.println("LOAD " + offset + " " + id + "\t int" +
+                id + " " + offset);
+    }
     
 }

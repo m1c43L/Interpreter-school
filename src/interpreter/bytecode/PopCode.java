@@ -26,5 +26,10 @@ public class PopCode extends ByteCode{
     public void init(String[] args) {
         numPop = Integer.parseInt(args[1]);
     }
+
+    @Override
+    public void dumpCode() {
+        System.out.println("POP " + numPop);
+    }
     
 }

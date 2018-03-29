@@ -2,6 +2,7 @@ package interpreter;
 import java.util.HashMap;
 
 /**
+ * Records table of ByteCodes to be used in ByteCodeLoader
  * 
  * @author Michael
  */

@@ -26,5 +26,10 @@ public class ReturnCode extends ByteCode{
     public void init(String[] args) {
         returnComment = (args.length > 1)? args[1] : "";
     }
+
+    @Override
+    public void dumpCode() {
+        System.out.println("RETURN " + returnComment);
+    }
     
 }

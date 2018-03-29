@@ -20,7 +20,7 @@ public class FalseBranchCode extends ByteCode{
     @Override
     public void execute(VirtualMachine VM) {
         if(VM.popRunStack() == 0){
-            VM.pushPC();
+           // VM.pushPC();
             VM.jumpPC(address);
         }
     }
@@ -34,6 +34,12 @@ public class FalseBranchCode extends ByteCode{
     public void setAddress(Program program){
         address = program.getAddress(label);
     }
+
+    @Override
+    public void dumpCode() {
+        System.out.println("FALSEBRANCH " + label );
+    }
+    
     
    
     

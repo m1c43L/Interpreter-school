@@ -14,7 +14,7 @@ import interpreter.VirtualMachine;
 public class LitCode extends ByteCode{
 
     private int value; 
-    private String id;
+    private String id = "";
     
     @Override
     public void execute(VirtualMachine VM) {
@@ -26,6 +26,12 @@ public class LitCode extends ByteCode{
     public void init(String[] args) {
         value = Integer.parseInt(args[1]);
         id = (args.length > 2)? args[2]: " ";
+    }
+
+    @Override
+    public void dumpCode() {
+        System.out.println("LIT " + value + " " + id 
+                + "\t int " + id + " " + value);
     }
     
 }

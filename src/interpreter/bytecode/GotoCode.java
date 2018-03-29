@@ -31,5 +31,10 @@ public class GotoCode extends ByteCode{
     public void setAddress(Program program){
         address = program.getAddress(label);
     }
+
+    @Override
+    public void dumpCode() {
+        System.out.println("GOTO " + label);
+    }
     
 }

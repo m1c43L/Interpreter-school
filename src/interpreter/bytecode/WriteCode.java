@@ -24,4 +24,9 @@ public class WriteCode extends ByteCode {
         
     }
     
+    @Override
+    public void dumpCode() {
+        System.out.println("WRITE");
+    }
+    
 }

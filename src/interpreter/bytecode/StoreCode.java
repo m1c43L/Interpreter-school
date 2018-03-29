@@ -28,4 +28,9 @@ public class StoreCode extends ByteCode{
         id = args[2];
     }
     
+    @Override
+    public void dumpCode() {
+        System.out.println("STORE " + value + " " + id + "\tint " +
+                id + " " + value);
+    }
 }

@@ -24,5 +24,9 @@ public class DumpCode extends ByteCode{
     public void init(String[] args) {
        isOn = (args[1].equals("ON"));
     }
+
+    @Override
+    public void dumpCode() {
+    }
     
 }

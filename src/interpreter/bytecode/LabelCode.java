@@ -17,7 +17,7 @@ public class LabelCode extends ByteCode {
     
     @Override
     public void execute(VirtualMachine VM) {
-       // VM.peekRunStack();
+        return;
     }
 
     @Override
@@ -27,5 +27,10 @@ public class LabelCode extends ByteCode {
     
     public String getLabel(){
         return label;
+    }
+
+    @Override
+    public void dumpCode() {
+        System.out.println("LABEL " + label);
     }
 }
