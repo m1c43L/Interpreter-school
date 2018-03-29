@@ -34,8 +34,7 @@ public class VirtualMachine {
             ByteCode code = program.getCode(pc);
             code.execute(this);
             if(isDumping){
-                code.dumpCode();
-                runStack.dump();
+                if(code.dumpCode())  runStack.dump();
             } // check that operation is correct
             pc++;
         }

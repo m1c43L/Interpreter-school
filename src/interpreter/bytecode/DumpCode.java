@@ -8,7 +8,7 @@ package interpreter.bytecode;
 import interpreter.VirtualMachine;
 
 /**
- *
+ * Prints debug
  * @author Michael
  */
 public class DumpCode extends ByteCode{
@@ -26,7 +26,8 @@ public class DumpCode extends ByteCode{
     }
 
     @Override
-    public void dumpCode() {
+    public boolean dumpCode() {
+        return false;
     }
     
 }

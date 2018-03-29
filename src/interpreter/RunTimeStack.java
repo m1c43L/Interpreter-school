@@ -37,7 +37,7 @@ public class RunTimeStack {
                     && frameMarker.get(indexFM) == i
                     && i > 0){
                 frmLog.deleteCharAt(frmLog.length() - 1);
-                frmLog.append("][");
+                frmLog.append("] [");
                 indexFM++;
             } 
             frmLog.append(runStack.get(i)).append(",");          

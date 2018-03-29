@@ -10,10 +10,12 @@
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/HaltCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/ReadCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/ArgsCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/CodeTable.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/ReturnCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/FalseBranchCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/LabelCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/FalseBranchCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/DumpCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/Interpreter.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/VirtualMachine.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/GotoCode.java</file>
             <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/ByteCodeLoader.java</file>

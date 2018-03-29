@@ -60,7 +60,9 @@ public class Program {
     
     
     
-    /*  tedious algorithm 
+    /*  initial approacg. tedious algorithm  code above is improved version.
+    
+    
     public void resolveAddress(){
         
         for(ByteCode byteCode: byteCodesList){

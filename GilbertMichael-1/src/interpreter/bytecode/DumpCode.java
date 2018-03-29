@@ -8,29 +8,26 @@ package interpreter.bytecode;
 import interpreter.VirtualMachine;
 
 /**
- * Pop top of the runStack
+ * Prints debug
  * @author Michael
  */
-public class PopCode extends ByteCode{
+public class DumpCode extends ByteCode{
 
-    private int numPop;
+    private boolean isOn;
     
     @Override
     public void execute(VirtualMachine VM) {
-        for(int i = 0; i < numPop; i++){
-            VM.popRunStack();
-        }
+         VM.setDumpState(isOn);
     }
 
     @Override
     public void init(String[] args) {
-        numPop = Integer.parseInt(args[1]);
+       isOn = (args[1].equals("ON"));
     }
 
     @Override
     public boolean dumpCode() {
-        System.out.println("POP " + numPop);
-        return true;
+        return false;
     }
     
 }
