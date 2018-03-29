@@ -13,14 +13,15 @@ import interpreter.VirtualMachine;
  */
 public class WriteCode extends ByteCode {
 
+    
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println(VM.peekRunStack());
     }
 
     @Override
     public void init(String[] args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }

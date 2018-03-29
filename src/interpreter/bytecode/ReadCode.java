@@ -5,6 +5,8 @@
  */
 package interpreter.bytecode;
 
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
 import interpreter.VirtualMachine;
 
 /**
@@ -13,14 +15,23 @@ import interpreter.VirtualMachine;
  */
 public class ReadCode extends ByteCode{
 
+    private int value;
+    
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(System.in));
+            String line = in.readLine();
+            value = Integer.parseInt(line);
+            VM.pushRunStack(value);
+        }catch(java.io.IOException ex){ }
+        
     }
 
     @Override
     public void init(String[] args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }

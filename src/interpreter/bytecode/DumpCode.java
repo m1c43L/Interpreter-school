@@ -17,7 +17,7 @@ public class DumpCode extends ByteCode{
     
     @Override
     public void execute(VirtualMachine VM) {
-        if(isOn) VM.dumpStatToggle();
+         VM.setDumpState(isOn);
     }
 
     @Override

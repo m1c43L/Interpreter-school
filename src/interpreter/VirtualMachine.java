@@ -72,8 +72,8 @@ public class VirtualMachine {
         return runStack.push(i);
     }
     
-    public void dumpStatToggle(){
-        isDumping = !isDumping;
+    public void setDumpState(boolean state){
+        isDumping = state;
     }
     
     public void haltExecution(){
@@ -92,9 +92,12 @@ public class VirtualMachine {
         pc = addrsIndex;
     }
     
-    public boolean dumping(){
+    public boolean isDumpingOn(){
         return isDumping;
     }
     
+    public void doDump(){
+       runStack.dump();
+    }
     
 }

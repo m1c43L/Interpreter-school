@@ -39,6 +39,8 @@ public class BopCode extends ByteCode {
     @Override
     public void execute(VirtualMachine VM) {
         VM.pushRunStack(doOperation(VM.popRunStack(),VM.popRunStack()));
+        System.out.println("BOP " + operator );
+        
     }
 
     @Override

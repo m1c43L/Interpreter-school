@@ -18,6 +18,13 @@ public class ArgsCode extends ByteCode {
     @Override
     public void execute(VirtualMachine VM) {
         VM.newFrameAtRunStack(numArgs);
+        
+        if(VM.isDumpingOn()){
+           System.out.println("ARGS " + numArgs);
+           VM.doDump();
+        }
+        
+        
     }
 
     @Override
