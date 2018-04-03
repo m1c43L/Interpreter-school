@@ -53,6 +53,9 @@ public class RunTimeStack {
     }
     
     public int pop(){     
+        // pop past frame boudary special case. may break program anyways.
+        //if(runStack.size() - 2 == framePointers.peek() 
+        //      && framePointer.size() > 1) { framePointers.pop(); }
         return (int) runStack.remove(runStack.size() - 1);
     }
     

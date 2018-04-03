@@ -92,12 +92,5 @@ public class VirtualMachine {
         pc = addrsIndex;
     }
     
-    public boolean isDumpingOn(){
-        return isDumping;
-    }
-    
-    public void doDump(){
-       runStack.dump();
-    }
     
 }

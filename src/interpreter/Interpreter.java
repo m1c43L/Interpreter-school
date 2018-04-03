@@ -33,7 +33,7 @@ public class Interpreter {
         VirtualMachine vm = new VirtualMachine(program);
         vm.executeProgram();
     }
-    
+   /*
     public static void main(String args[]) {
         if (args.length == 0) {
             System.out.println("***Incorrect usage, try: java interpreter.Interpreter <file>");
@@ -41,12 +41,12 @@ public class Interpreter {
         }
     (new Interpreter(args[0])).run();
     }
+  */
    
-    /*
     // for testing purpose
     public static void main(String args[]) {
         
         (new Interpreter("test.txt")).run();
     }
-    */
+   
 }
