@@ -11,11 +11,9 @@ public class FunctionEnvironmentRecord {
     private Table symbols;
     private String funcName;
     private int startingLineNo, endingLineNo, currentLineNo;
-    private Binder marks;
-    private Symbol top;
     
     public FunctionEnvironmentRecord(){
-        
+        symbols = new Table();
     }
     
     public void beginScope(){
@@ -28,24 +26,63 @@ public class FunctionEnvironmentRecord {
         endingLineNo = end;
     }
     
-    public void setCurrentLineNumber(int newLineNo){
-        startingLineNo = newLineNo;
-    }
-    
-    public void setVarVal(String var, int val){  
-        symbols.put(new Symbol(var), val);
-    }
-    
-    public void doPop(int lines){
+    public void getOffset(){
         
+    }
+    
+    public void setCurrentLineNumber(int newLineNo){
+        currentLineNo = newLineNo;
+    }
+    
+    public void put(Symbol var, int val){  
+        symbols.put(var, val);
+    }
+    
+    public void pop(int lines){
+        while(lines > 0){
+            symbols.pop();
+            lines --;
+        }
     }
     
     public void dump(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("(<");
+        if(!symbols.keys().isEmpty()){
+        for(Symbol s: symbols.keys()){
+            builder.append(s.getId()+"/"+symbols.get(s));
+            builder.append(",");
+        }
+        builder.setCharAt( builder.length() - 1,'>');
+        }else builder.append(">");
         
+        builder.append("," + funcName).append("," + startingLineNo)
+                .append("," + endingLineNo).append("," + currentLineNo);
+        builder.append(")");
+        System.out.println(builder);
     }
     
     
     public static void main(String args[]){
+        FunctionEnvironmentRecord t = new FunctionEnvironmentRecord();
+        t.beginScope();
+        t.dump();
+        t.setFunctionInfo("g", 1, 2);
+        t.dump();
+        t.setCurrentLineNumber(5);
+        t.dump();
+        t.put(new Symbol("a"),4);
+        t.dump();
+        t.put(new Symbol("b"), 2);
+        t.dump();
+        t.put(new Symbol("c"), 7);
+        t.dump();
+        t.put(new Symbol("a"), 1);
+        t.dump();
+        t.pop(2);
+        t.dump();
+        t.pop(1);
+        t.dump();
         
     }
 }
@@ -72,6 +109,10 @@ class Symbol{
     
     Symbol(String newId){
         id = newId;
+    }
+    
+    public String getId(){
+        return id;
     }
     
 }
@@ -128,6 +169,12 @@ class Symbol{
 	}
 	top=marks.getPrevtop();
 	marks=marks.getTail();
+  }
+  
+  public void pop(){
+      Binder e = symbols.get(top);
+      symbols.remove(top);
+      top = e.getPrevtop();   
   }
 
   /**
