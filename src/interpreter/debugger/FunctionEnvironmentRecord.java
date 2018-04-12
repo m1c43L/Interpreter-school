@@ -14,6 +14,7 @@ public class FunctionEnvironmentRecord {
     
     public FunctionEnvironmentRecord(){
         symbols = new Table();
+        symbols.beginScope();
     }
     
     public void beginScope(){

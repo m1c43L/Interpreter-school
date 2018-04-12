@@ -14,13 +14,14 @@ import interpreter.VirtualMachine;
  */
 public class ReturnCode extends ByteCode{
 
-    String returnComment;
-    
+    private String returnComment;
+    private int returnValue;
     
     @Override
     public void execute(VirtualMachine VM) {
         VM.returnPC();
         VM.popFrameRunStack();
+        returnValue = VM.peekRunStack();
     }
 
     @Override
@@ -30,7 +31,7 @@ public class ReturnCode extends ByteCode{
 
     @Override
     public boolean dumpCode() {
-        System.out.println("RETURN " + returnComment);
+        System.out.println("RETURN " + returnComment + " " + returnValue);
         return true;
     }
     
