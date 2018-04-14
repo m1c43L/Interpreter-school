@@ -2,13 +2,16 @@ package interpreter.debugger;
 import interpreter.*;
 import java.util.ArrayList;
 import java.util.Stack;
+
+
 /**
- *
+ * VM for debugger.
+ * extends interpreters VM.
  * @author Michael
  */
 public class DebuggerVirtualMachine extends VirtualMachine {
     
-    private ArrayList <MarkerSourceEntry> makerSourceRecord;
+    private ArrayList <SourceEntryMarker> makerSourceRecord;
     private Stack <FunctionEnvironmentRecord> funcEnvironmentStack;
     
     
@@ -34,13 +37,16 @@ public class DebuggerVirtualMachine extends VirtualMachine {
 
 
 
-
-class MarkerSourceEntry{
+/**
+ * Source lines with markers
+ * @author Michael
+ */
+class SourceEntryMarker{
     
     private String sourceLine;
     private boolean isBreakptSet;
     
-    public MarkerSourceEntry(String sourceLine, boolean isBreakptSet){
+    public SourceEntryMarker(String sourceLine, boolean isBreakptSet){
         this.sourceLine = sourceLine;
         this.isBreakptSet = isBreakptSet;
     }

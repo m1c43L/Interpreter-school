@@ -31,8 +31,8 @@ public class FunctionEnvironmentRecord {
         currentLineNo = newLineNo;
     }
     
-    public void put(String var, int val){  
-        symbols.put(var, val);
+    public void put(String var, int val, boolean isBeingWatched){  
+        symbols.put(var, val, isBeingWatched);
     }
     
     public void pop(int numToPop){
@@ -64,9 +64,11 @@ public class FunctionEnvironmentRecord {
         System.out.println(builder);
     }
     
+    
     /** 
     *   test the class
     */
+    /*
     public static void main(String args[]){
         FunctionEnvironmentRecord t = new FunctionEnvironmentRecord();
         t.beginScope();
@@ -89,21 +91,23 @@ public class FunctionEnvironmentRecord {
         t.dump();
         
     }
+    */
 }
 
 
 class Binder{
     
     private Object value;
-    private String prevtop;   // prior symbol in same scope
+    private String prevTop;   // prior symbol in same scope
     private Binder tail;      // prior binder for same symbol
                             // restore this when closing scope
-    Binder(Object v, String p, Binder t) {
-	value=v; prevtop=p; tail=t;
+    Binder(Object val, String prevTop, Binder tail, boolean isWatching) {
+	this.value=val; this.prevTop=prevTop; this.tail=tail;
+        if(isWatching) System.out.println(prevTop + ": " + value);
     }
 
     Object getValue() { return value; }
-    String getPrevtop() { return prevtop; }
+    String getPrevtop() { return prevTop; }
     Binder getTail() { return tail; }
     }
 
@@ -134,8 +138,8 @@ class Binder{
   * Maintain the list of symbols in the current scope (top);<br>
   * Add to list of symbols in prior scope with the same string identifier
   */
-  public void put(String key, Object value) {
-	symbols.put(key, new Binder(value, top, symbols.get(key)));
+  public void put(String key, Object value, boolean isWatching) {
+	symbols.put(key, new Binder(value, top, symbols.get(key), isWatching));
 	top = key;
   }
 
@@ -143,7 +147,7 @@ class Binder{
   * Remembers the current state of the Table; push new mark on mark stack
   */
   public void beginScope() {
-    marks = new Binder(null,top,marks);
+   // marks = new Binder(null,top,marks);
     top=null;
   }
 

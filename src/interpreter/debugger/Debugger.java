@@ -8,6 +8,12 @@ package interpreter.debugger;
 public class Debugger {
     
     
+    public Debugger(String sourceCode){
+        
+    }
     
     
+    public void debug(){
+        
+    }
 }

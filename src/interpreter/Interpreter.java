@@ -28,25 +28,37 @@ public class Interpreter {
         }
     }
     
+    public Interpreter(String baseFileName, String extension){
+        
+    }
+    
     void run() {
         Program program = bcl.loadCodes();
         VirtualMachine vm = new VirtualMachine(program);
         vm.executeProgram();
     }
-   /*
+    
+    
+   
     public static void main(String args[]) {
         if (args.length == 0) {
-            System.out.println("***Incorrect usage, try: java interpreter.Interpreter <file>");
+            System.out.println("***Incorrect usage, try: "
+                    + "java interpreter.Interpreter <file>");
             System.exit(1);
+        }else if(args[0].equals("-d") && args.length == 2){
+            new Interpreter(args[1],".x").run();
+        }else{
+             new Interpreter(args[0]).run();
         }
-    (new Interpreter(args[0])).run();
+            
     }
-  */
-   
+  
+   /*
     // for testing purpose
     public static void main(String args[]) {
         
+        
         (new Interpreter("test.txt")).run();
     }
-   
+   */
 }
