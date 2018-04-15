@@ -10,12 +10,12 @@ import java.util.*;
  */
 public class Program {
     
-    private Vector <ByteCode> byteCodesList;
+    private ArrayList <ByteCode> byteCodesList;
     private HashMap <String,Integer> address;
 
     
     public Program(){
-        byteCodesList = new Vector();
+        byteCodesList = new ArrayList();
         address = new HashMap();
     }
     

@@ -5,6 +5,8 @@
  */
 package interpreter.ui.cmd;
 
+import interpreter.debugger.DebuggerVirtualMachine;
+
 /**
  *
  * @author Michael
@@ -12,13 +14,20 @@ package interpreter.ui.cmd;
 public class DisplayVariablesCMD extends CMD{
 
     @Override
-    public void execute(String[] inputs) {
-        
+    public void execute(DebuggerVirtualMachine dvm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
-    public String toString(){
+    public void setParameters(String[] inputs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getStringDefinition() {
         return "dv      - (Display Variable)";
     }
+
+    
     
 }

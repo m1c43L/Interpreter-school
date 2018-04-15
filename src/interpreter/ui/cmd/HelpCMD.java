@@ -5,6 +5,7 @@
  */
 package interpreter.ui.cmd;
 
+import interpreter.debugger.DebuggerVirtualMachine;
 import interpreter.ui.Commands;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,23 +16,28 @@ import java.util.List;
  * @author Michael
  */
 public class HelpCMD extends CMD {
-
-    @Override
-    public void execute(String[] inputs) {
-        List commands = new ArrayList(Commands.getCommands());
-        Collections.sort(commands);
-        for(Object out: commands){
-            System.out.println(out.toString());
-        }
-                
-    }
+    private List commands;
     
     private void printDefinition(String definition){
         System.out.println(definition);
     }
     
+
     @Override
-    public String toString(){
+    public void execute(DebuggerVirtualMachine dvm) {
+        //Collections.sort(commands);
+        for(Object out: commands){
+            System.out.println(((CMD)out).getStringDefinition());
+        }
+    }
+
+    @Override
+    public void setParameters(String[] inputs) {
+        commands = new ArrayList(Commands.getCommands());
+    }
+
+    @Override
+    public String getStringDefinition() {
         return "?       - (Help)";
     }
     

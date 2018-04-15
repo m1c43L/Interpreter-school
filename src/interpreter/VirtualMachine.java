@@ -19,7 +19,7 @@ public class VirtualMachine {
     private Program program;
     
     
-    
+
     public VirtualMachine(Program newProgram){
         returnAddrs = new Stack();
         program = newProgram;

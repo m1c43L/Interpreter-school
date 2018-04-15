@@ -17,7 +17,7 @@ import java.util.Set;
  */
 public class Commands{
     
-   private static  HashMap <String,CMD> commands;
+   private static HashMap <String,CMD> commands;
    
    static {
        commands = new HashMap();
@@ -34,7 +34,9 @@ public class Commands{
        return commands.get(commandName);
    }
    
-   public static Collection<CMD> getCommands(){
+   public static Collection <CMD> getCommands(){
        return commands.values();
    }
+   
+  
 }

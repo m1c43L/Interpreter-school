@@ -5,49 +5,56 @@
  */
 package interpreter.ui;
 
+import interpreter.debugger.DebuggerVirtualMachine;
+import interpreter.ui.cmd.CMD;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Michael
  */
 public class UI {
     
-    BufferedReader inputReader;
+    private BufferedReader inputReader;
+    private CMD currentCommand;
     
     public UI(){
-        inputReader = new BufferedReader(new InputStreamReader(System.in));
+        inputReader = new BufferedReader(
+                new InputStreamReader(System.in));
     }
     
-    
-    public void run(){
-
-        while(true){
-            try {
-                System.out.println("Type '?' for help: ");
-                String [] tokenizedInput = tokenizeString(inputReader.readLine());
-                fetchAndExecute(tokenizedInput);         
-            } catch (IOException ex) {
-                System.out.println("Incorrect Input");
-            }
-        }     
+    public String getUserInput(){
+        String userInput = "";
+        try {
+            userInput = inputReader.readLine();
+        } catch (IOException ex) {}
+        
+        return userInput;
     }
     
-    private String [] tokenizeString(String input){
+    private String [] tokenize(String input){
         return input.split("\\s+");
     }
     
-    private void fetchAndExecute(String [] commandWithParam){
-        Commands.get(commandWithParam[0]).execute(commandWithParam);
+    public void setUpCommand(){
+        String [] command = tokenize(getUserInput());
+        currentCommand = Commands.get(command[0]);
+        currentCommand.setParameters(command);
     }
+   
+    
+    public void  executeCommandTo(DebuggerVirtualMachine dvm){
+        currentCommand.execute(dvm);
+    }
+    
     
     public static void main(String args[]){
         UI test = new UI();
-        
-        test.run();
+        DebuggerVirtualMachine dvm = null;
+        while(true){
+            test.setUpCommand();
+            test.executeCommandTo(dvm);
+        }
     }
 }
