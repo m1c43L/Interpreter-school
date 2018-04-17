@@ -8,7 +8,6 @@ package interpreter.ui.cmd;
 import interpreter.debugger.DebuggerVirtualMachine;
 import interpreter.ui.Commands;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

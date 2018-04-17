@@ -1,6 +1,9 @@
 package interpreter;
 import interpreter.ByteCodeLoader;
+import interpreter.debugger.DebuggerVirtualMachine;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
 * <pre>
 *
@@ -18,6 +21,8 @@ import java.io.*;
 public class Interpreter {
     
     ByteCodeLoader bcl;
+    private boolean isDebugMode;
+    private String sourceCodeFile;
     
     public Interpreter(String codeFile) {
         try {
@@ -28,14 +33,36 @@ public class Interpreter {
         }
     }
     
-    public Interpreter(String baseFileName, String extension){
+    public Interpreter(String baseFileName, String sourceExtention,
+            String byteCodeExtention){
         
+        try {
+            CodeTable.init();
+            CodeTable.initDebuggerByteCodes();
+            bcl = new ByteCodeLoader(baseFileName + byteCodeExtention);
+            sourceCodeFile = baseFileName + sourceExtention;
+        } catch (IOException e) {
+        System.out.println("**** " + e);
+        }
     }
     
     void run() {
         Program program = bcl.loadCodes();
-        VirtualMachine vm = new VirtualMachine(program);
+        VirtualMachine vm;
+        if(isDebugMode){
+            vm = new DebuggerVirtualMachine(program);
+            try {
+                ((DebuggerVirtualMachine)vm).loadSourceCode(sourceCodeFile);
+            } catch (Exception ex) {
+                System.out.println("*********File Not Found*********");
+                System.exit(1);
+            }
+        }else{
+            vm = new VirtualMachine(program);
+        }
+        
         vm.executeProgram();
+        
     }
     
     
@@ -46,7 +73,7 @@ public class Interpreter {
                     + "java interpreter.Interpreter <file>");
             System.exit(1);
         }else if(args[0].equals("-d") && args.length == 2){
-            new Interpreter(args[1],".x").run();
+            new Interpreter(args[1],".x",".x.cod").run();
         }else{
              new Interpreter(args[0]).run();
         }

@@ -28,7 +28,12 @@ public class CodeTable {
         byteCodeTable.put("STORE", "StoreCode");
         byteCodeTable.put("WRITE", "WriteCode");    
         byteCodeTable.put("DUMP", "DumpCode");
-        byteCodeTable.put("LINE", "LineCode");
+    }
+    
+    public static void initDebuggerByteCodes(){
+        byteCodeTable.put("LINE", "debuggerByteCodes.LineCode");
+        byteCodeTable.put("FORMAL", "debuggerByteCodes.FormalCode");
+        byteCodeTable.put("FUNCTION", "debuggerByteCodes.FunctionCode");
     }
     
     public static String get(String code)

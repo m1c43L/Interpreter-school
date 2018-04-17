@@ -31,4 +31,8 @@ public class LineCode extends ByteCode {
         return false;
     }
     
+    public int getLineNumber(){
+        return lineNumber;
+    }
+    
 }
