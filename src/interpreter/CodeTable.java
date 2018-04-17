@@ -28,6 +28,7 @@ public class CodeTable {
         byteCodeTable.put("STORE", "StoreCode");
         byteCodeTable.put("WRITE", "WriteCode");    
         byteCodeTable.put("DUMP", "DumpCode");
+        byteCodeTable.put("LINE", "LineCode");
     }
     
     public static String get(String code)

@@ -16,15 +16,18 @@ import java.util.Stack;
  */
 public class DebuggerVirtualMachine extends VirtualMachine {
     
-    private ArrayList <SourceEntryMarker> markerSourceRecord;
+    
+    private ArrayList <SourceLineMarker> sourceRecord;
     private Stack <FunctionEnvironmentRecord> funcEnvironmentStack;
     private UI user;
+    private int currentLine;
+    private boolean iRunning;
     
 
     
     public DebuggerVirtualMachine(Program newProgram) {
         super(newProgram);  
-        markerSourceRecord = new ArrayList();
+        sourceRecord = new ArrayList();
         funcEnvironmentStack = new Stack();
         user = new UI();
     }   
@@ -38,30 +41,38 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     }
     
     public void loadSourceCode(String sourceFile) throws FileNotFoundException, IOException{
-        markerSourceRecord = new ArrayList();
+        sourceRecord = new ArrayList();
         BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
         while(reader.ready()){
-            markerSourceRecord.add(new SourceEntryMarker(reader.readLine()));
+            sourceRecord.add(new SourceLineMarker(reader.readLine()));
         }
     }
      
     public void setBreakPoint(int line){
-        
+        sourceRecord.get(line - 1).setBreakPt();
     }
     
     public void clearBreakPoint(int line){
-        
+        sourceRecord.get(line - 1).clearBreakPt();
+    }
+    
+    public void displaySourceFunction(){
+        int counter = 1;
+        for(SourceLineMarker source: sourceRecord){
+            System.out.println(counter + ".) " + source);
+        }
     }
     
     public void displayCurrentFunction(){
-        int counter = 1;
-        for(SourceEntryMarker source: markerSourceRecord){
-            System.out.println(counter + ".) " + source.getSourceLine());
-        }
+        System.out.println(sourceRecord.get(currentLine - 1));
     }
     
     public void continueExecution(){
         
+    }
+    
+    public void setCurrentLine(int newCurrentLine){
+        currentLine = newCurrentLine;
     }
     
     
@@ -74,17 +85,13 @@ public class DebuggerVirtualMachine extends VirtualMachine {
  * Source lines with markers
  * @author Michael
  */
-class SourceEntryMarker{
+class SourceLineMarker{
     
     private String sourceLine;
     private boolean isBreakptSet, isPossibleBreakPt;
     
-    public SourceEntryMarker(String sourceLine){
+    public SourceLineMarker(String sourceLine){
         this.sourceLine = sourceLine;
-    }
-    
-    public String getSourceLine(){
-        return this.sourceLine;
     }
     
     public boolean isBreakptSet(){
@@ -99,4 +106,7 @@ class SourceEntryMarker{
         isBreakptSet = false;
     }
     
+    public String toString(){
+        return sourceLine;
+    }
 }

@@ -7,21 +7,23 @@ package interpreter.bytecode.debuggerByteCodes;
 
 import interpreter.VirtualMachine;
 import interpreter.bytecode.ByteCode;
+import interpreter.debugger.DebuggerVirtualMachine;
 
 /**
  *
  * @author Michael
  */
 public class LineCode extends ByteCode {
-
+    private int lineNumber;
+    
     @Override
     public void execute(VirtualMachine VM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ((DebuggerVirtualMachine) VM).setCurrentLine(lineNumber);
     }
 
     @Override
     public void init(String[] args) {
-        
+        lineNumber = Integer.parseInt(args[1]);
     }
 
     @Override

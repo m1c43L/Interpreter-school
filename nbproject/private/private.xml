@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/debugger/DebuggerVirtualMachine.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ByteCodeLoader.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/Program.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/CodeTable.java</file>
+        </group>
     </open-files>
 </project-private>
