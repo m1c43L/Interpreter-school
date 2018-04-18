@@ -3,10 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/QuitExecutionCMD.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/LabelCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/Interpreter.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/FormalCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/GotoCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/SetBreakPointCMD.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/ReturnCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/Program.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/ContinueExecutionCMD.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/CodeTable.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/DebugPopCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/LineCode.java</file>
             <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/debugger/DebuggerVirtualMachine.java</file>
             <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ByteCodeLoader.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/Program.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/CodeTable.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/FunctionCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/DisplayCurrentFunctionCMD.java</file>
+            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/debugger/FunctionEnvironmentRecord.java</file>
         </group>
     </open-files>
 </project-private>

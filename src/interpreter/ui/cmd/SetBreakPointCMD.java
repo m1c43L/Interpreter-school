@@ -12,20 +12,30 @@ import interpreter.debugger.DebuggerVirtualMachine;
  * @author Michael
  */
 public class SetBreakPointCMD extends CMD{
-
+    private int [] breakPoints;
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(int i = 0; i < breakPoints.length; i++){
+            if(dvm.canSetBreakPoint(breakPoints[i])) 
+                dvm.setBreakPoint(breakPoints[i]);
+            else
+                System.out.println("Cannot set break point on line: " + breakPoints[i]);
+        }
     }
 
     @Override
     public void setParameters(String[] inputs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        breakPoints = new int[inputs.length - 1];
+        for(int i = 1; i < inputs.length; i++){
+            breakPoints[i - 1] = Integer.parseInt(inputs[i]);
+        }
+        
     }
+    
 
     @Override
     public String getStringDefinition() {
-        return "sbp     - (Set Break Point)";
+        return "set \t\t\t- (Set Break Point)";
     }
 }

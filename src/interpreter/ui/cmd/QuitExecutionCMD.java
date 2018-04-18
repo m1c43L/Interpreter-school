@@ -15,17 +15,17 @@ public class QuitExecutionCMD extends CMD{
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dvm.haltExecution();
     }
 
     @Override
     public void setParameters(String[] inputs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public String getStringDefinition() {
-         return "qe      - (Quit Execution)";
+         return "quit \t\t\t- (Quit Execution)";
     }
 
 

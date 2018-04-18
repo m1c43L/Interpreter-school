@@ -30,31 +30,30 @@ public class Program {
     
     public void resolveAddress(){
         initAddress();
-        byteCodesList.forEach((code) -> {
-            if(code.getClass().equals(FalseBranchCode.class)){
+     
+        for(ByteCode code: byteCodesList){
+            if(code instanceof FalseBranchCode){
                 ((FalseBranchCode)code).setAddress(this);
-            }else if(code.getClass().equals(GotoCode.class)){
+            }else if(code instanceof GotoCode){
                 ((GotoCode)code).setAddress(this);
-            }else if(code.getClass().equals(CallCode.class)){
+            }else if(code instanceof CallCode){
                 ((CallCode)code).setAddress(this);
             }
-        });   
+        }
     }
     
     public int getAddress(String label){
         return (int)address.get(label);
     }
     
-    public HashMap <Integer,Integer> possibleBreakLines(){
-        HashMap lines = new HashMap();
-        int lineNumber;
+    public ArrayList<Integer> possibleBreakPts(){
+        ArrayList list = new ArrayList();
         for(ByteCode code: byteCodesList){
             if(code instanceof LineCode){
-                lineNumber = ((LineCode)code).getLineNumber();
-                lines.put(lineNumber,lineNumber);
+               list.add(((LineCode)code).getLineNumber());
             }
         }
-        return lines;
+        return list;
     }
     
     private void initAddress(){

@@ -6,25 +6,32 @@
 package interpreter.ui.cmd;
 
 import interpreter.debugger.DebuggerVirtualMachine;
+import java.util.ArrayList;
 
 /**
  *
  * @author Michael
  */
 public class ClearBreakPointCMD extends CMD{
+    private ArrayList<Integer> indexList;
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(int i = 0; i < indexList.size(); i++){
+            dvm.clearBreakPoint(indexList.get(i));
+        }
     }
 
     @Override
     public void setParameters(String[] inputs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        indexList = new ArrayList();
+        for(int i = 1; i < inputs.length; i++){
+            indexList.add(Integer.parseInt(inputs[i]));
+        }
     }
     
     @Override
     public String getStringDefinition() {
-        return "clearbp     - (Clear Break Point) ";
+        return "clear \t\t\t- (Clear Break Point) ";
     }
 }

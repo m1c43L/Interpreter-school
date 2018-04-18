@@ -11,11 +11,11 @@ import interpreter.debugger.DebuggerVirtualMachine;
  *
  * @author Michael
  */
-public class DisplayVariablesCMD extends CMD{
+public class PrintSourceCodeCMD extends CMD{
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
-        dvm.displayVariables();
+        dvm.displaySourceCode();
     }
 
     @Override
@@ -24,9 +24,7 @@ public class DisplayVariablesCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "disp-v \t\t\t- (Display Variable)";
+        return "source \t\t\t- (Print Source Code) ";
     }
-
-    
     
 }

@@ -18,6 +18,7 @@ public class LineCode extends ByteCode {
     
     @Override
     public void execute(VirtualMachine VM) {
+        if(lineNumber > 0)
         ((DebuggerVirtualMachine) VM).setCurrentLine(lineNumber);
     }
 

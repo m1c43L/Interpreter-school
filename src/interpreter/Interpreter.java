@@ -25,6 +25,7 @@ public class Interpreter {
     private String sourceCodeFile;
     
     public Interpreter(String codeFile) {
+        isDebugMode = false;
         try {
             CodeTable.init();
             bcl = new ByteCodeLoader(codeFile);
@@ -35,7 +36,7 @@ public class Interpreter {
     
     public Interpreter(String baseFileName, String sourceExtention,
             String byteCodeExtention){
-        
+        isDebugMode = true;
         try {
             CodeTable.init();
             CodeTable.initDebuggerByteCodes();
@@ -66,7 +67,7 @@ public class Interpreter {
     }
     
     
-   
+   /*
     public static void main(String args[]) {
         if (args.length == 0) {
             System.out.println("***Incorrect usage, try: "
@@ -79,13 +80,15 @@ public class Interpreter {
         }
             
     }
-  
-   /*
+  */
+   
     // for testing purpose
     public static void main(String args[]) {
         
-        
-        (new Interpreter("test.txt")).run();
+      Interpreter test  = new Interpreter("factorial",".x",".x.cod");
+     // Interpreter test = new Interpreter("test.txt");
+       test.run();
+       
     }
-   */
+   
 }

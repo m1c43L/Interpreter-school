@@ -21,13 +21,14 @@ public class Commands{
    
    static {
        commands = new HashMap();
-       commands.put("sbp", new SetBreakPointCMD());
-       commands.put("cbp", new ClearBreakPointCMD());
-       commands.put("ce", new ContinueExecutionCMD());
-       commands.put("dcf", new DisplayCurrentFunctionCMD());
-       commands.put("cv", new DisplayVariablesCMD());
+       commands.put("set", new SetBreakPointCMD());
+       commands.put("clear", new ClearBreakPointCMD());
+       commands.put("continue", new ContinueExecutionCMD());
+       commands.put("disp-c", new DisplayCurrentFunctionCMD());
+       commands.put("disp-v", new DisplayVariablesCMD());
        commands.put("?", new HelpCMD());
-       commands.put("qe", new QuitExecutionCMD());    
+       commands.put("quit", new QuitExecutionCMD());    
+       commands.put("source", new PrintSourceCodeCMD());
    }
    
    public static CMD get(String commandName){
@@ -36,6 +37,10 @@ public class Commands{
    
    public static Collection <CMD> getCommands(){
        return commands.values();
+   }
+   
+   public static boolean contains(String commandName){
+       return commands.containsKey(commandName);
    }
    
   

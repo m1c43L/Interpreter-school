@@ -11,10 +11,11 @@ import interpreter.debugger.FunctionEnvironmentRecord;
  */
 public class FunctionCode extends ByteCode{
     private FunctionEnvironmentRecord newFunction;
+    
 
     @Override
     public void execute(VirtualMachine VM) {
-        ((DebuggerVirtualMachine)VM).pushFunction(newFunction);
+       ((DebuggerVirtualMachine)VM).pushFunction(newFunction);
     }
 
     @Override
@@ -22,6 +23,7 @@ public class FunctionCode extends ByteCode{
         newFunction = new FunctionEnvironmentRecord();
         newFunction.setFunctionInfo(args[1], Integer.parseInt(args[2]), 
                 Integer.parseInt(args[3]));
+   
     }
 
     @Override

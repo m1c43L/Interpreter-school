@@ -3,7 +3,6 @@ import interpreter.*;
 import interpreter.bytecode.ByteCode;
 import interpreter.ui.UI;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     private Stack <FunctionEnvironmentRecord> funcEnvironmentStack;
     private UI user;
     private int currentLine;
-    private boolean isContinue;
+
     
    
     @Override
@@ -33,13 +32,9 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         currentLine = 1;
         runStack = new RunTimeStack();
         isRunning = true;
-        this.displaySourceFunction();
+        displaySourceCode();
+        user.suggestHelp();
         while(isRunning){
-            if(isContinue){
-               while(!sourceRecord.get(currentLine).isBreakptSet()) 
-                   runCycle();           
-               isContinue = false;
-            }
             user.setUpCommand();
             user.executeCommandTo(this);
         }
@@ -72,15 +67,19 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     public void loadSourceCode(String sourceFile) throws FileNotFoundException, IOException{
         sourceRecord = new ArrayList();
-        HashMap possibleBreakPt = program.possibleBreakLines();
-        int counter = 1;
+        ArrayList possibleBreakPt = program.possibleBreakPts();
+        int line = 1;
         BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
         while(reader.ready()){
-           sourceRecord.add(new SourceLineMarker(reader.readLine(), possibleBreakPt.containsKey(counter)));
-           counter ++;
+           sourceRecord.add(new SourceLineMarker(reader.readLine(), possibleBreakPt.contains(line)));
+           line ++;
         }
     }
      
+    public boolean canSetBreakPoint(int line){
+        return sourceRecord.get(line - 1 ).isPossibleBreakPt();
+    }
+    
     public void setBreakPoint(int line){
         sourceRecord.get(line - 1).setBreakPt();
     }
@@ -89,20 +88,23 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         sourceRecord.get(line - 1).clearBreakPt();
     }
     
-    public void displaySourceFunction(){
+    public void displaySourceCode(){
         int counter = 1;
         String breakPtMarker = "*";
-        StringBuffer indent = new StringBuffer();
-        for(int i = 0; i < sourceRecord.size(); i++){
+        StringBuffer sourceCode = new StringBuffer();
+        for(SourceLineMarker sourceLine: sourceRecord){
+            sourceCode.append(sourceLine.isBreakptSet()? breakPtMarker:" ")
+                    .append(counter)
+                    .append(counter < 10? ".  ":". ")
+                    .append(sourceLine);
             
-        }
-        for(SourceLineMarker source: sourceRecord){
-            System.out.println(source.isBreakptSet()? breakPtMarker:"  " 
-                    + counter + ". " + source);
             if(counter == currentLine){
-                System.out.print("\t\t <------------------------");
+                sourceCode.append("\t <-------------------------------");
             }
+            sourceCode.append("\n");
+            counter++;
         }
+        System.out.println(sourceCode);
     }
     
     public void displayCurrentFunction(){
@@ -110,7 +112,11 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     }
     
     public void continueExecution(){
-        
+        int prevLine = currentLine;
+        while(prevLine == currentLine 
+                || !sourceRecord.get(currentLine - 1).isBreakptSet()){
+            runCycle();     
+        }
     }
     
     public void quitExecution(){
@@ -119,6 +125,10 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     public void setCurrentLine(int newCurrentLine){
         currentLine = newCurrentLine;
+    }
+    
+    public void displayVariables(){
+        this.funcEnvironmentStack.peek().dump();
     }
     
     
@@ -142,10 +152,6 @@ class SourceLineMarker{
     
     public boolean isPossibleBreakPt(){
         return isPossibleBreakPt;
-    }
-    
-    public void makePossileBreakPt(){
-        isPossibleBreakPt = true;
     }
     
     public boolean isBreakptSet(){
