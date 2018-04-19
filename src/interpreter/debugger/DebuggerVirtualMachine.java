@@ -21,10 +21,9 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     private ArrayList <SourceLineMarker> sourceRecord;
     private Stack <FunctionEnvironmentRecord> funcEnvironmentStack;
-    private UI user;
+  
     private int currentLine;
 
-    
    
     @Override
     public void executeProgram(){     
@@ -33,10 +32,9 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         runStack = new RunTimeStack();
         isRunning = true;
         displaySourceCode();
-        user.suggestHelp();
+       
         while(isRunning){
-            user.setUpCommand();
-            user.executeCommandTo(this);
+            
         }
     }    
     
@@ -46,11 +44,13 @@ public class DebuggerVirtualMachine extends VirtualMachine {
                pc++;
     }
     
+    
+    
     public DebuggerVirtualMachine(Program newProgram) {
         super(newProgram);  
         sourceRecord = new ArrayList();
         funcEnvironmentStack = new Stack();
-        user = new UI();
+        funcEnvironmentStack.push(new FunctionEnvironmentRecord());
     }   
      
     public void pushFunction(FunctionEnvironmentRecord function){
@@ -68,10 +68,15 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     public void loadSourceCode(String sourceFile) throws FileNotFoundException, IOException{
         sourceRecord = new ArrayList();
         ArrayList possibleBreakPt = program.possibleBreakPts();
-        int line = 1;
         BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
+        int line = 1;
+
         while(reader.ready()){
-           sourceRecord.add(new SourceLineMarker(reader.readLine(), possibleBreakPt.contains(line)));
+            StringBuffer sourceLine = new StringBuffer();
+            sourceLine.append(line).append(line < 10? ".  ":". ")
+                    .append(reader.readLine());
+           sourceRecord.add(new SourceLineMarker(sourceLine.toString()
+                   , possibleBreakPt.contains(line)));
            line ++;
         }
     }
@@ -88,27 +93,28 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         sourceRecord.get(line - 1).clearBreakPt();
     }
     
+    private boolean isBreakPointSetTo(int line){
+        return sourceRecord.get(line - 1).isBreakptSet();
+    }
+    
     public void displaySourceCode(){
-        int counter = 1;
-        String breakPtMarker = "*";
+        int line = 1;
         StringBuffer sourceCode = new StringBuffer();
+        
         for(SourceLineMarker sourceLine: sourceRecord){
-            sourceCode.append(sourceLine.isBreakptSet()? breakPtMarker:" ")
-                    .append(counter)
-                    .append(counter < 10? ".  ":". ")
-                    .append(sourceLine);
-            
-            if(counter == currentLine){
-                sourceCode.append("\t <-------------------------------");
-            }
-            sourceCode.append("\n");
-            counter++;
+            sourceCode.append((isBreakPointSetTo(line)? "*":" "))
+                    .append(sourceLine)
+                    .append((line == currentLine)? "\t <-------------------------------":"")
+                    .append("\n");
+            line++;
         }
+        
         System.out.println(sourceCode);
     }
     
-    public void displayCurrentFunction(){
-        System.out.println(sourceRecord.get(currentLine - 1));
+    public String getCurrentLine(){ 
+        return (this.isBreakPointSetTo(currentLine)? "*":"") 
+                + sourceRecord.get(currentLine - 1);
     }
     
     public void continueExecution(){
@@ -125,13 +131,20 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     public void setCurrentLine(int newCurrentLine){
         currentLine = newCurrentLine;
+        funcEnvironmentStack.peek().setCurrentLineNumber(currentLine);
     }
     
     public void displayVariables(){
-        this.funcEnvironmentStack.peek().dump();
+        funcEnvironmentStack.peek().dump();
     }
     
+    public Object getCurrentValueOf(String id){
+       return funcEnvironmentStack.peek().getValueOf(id);
+    }
     
+    public void setCurrentFunctionInfo(String id, int start, int end){
+        funcEnvironmentStack.peek().setFunctionInfo(id, start, end);
+    }
     
 }
 

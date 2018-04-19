@@ -5,6 +5,7 @@
  */
 package interpreter.ui;
 
+import interpreter.Program;
 import interpreter.debugger.DebuggerVirtualMachine;
 import interpreter.ui.cmd.CMD;
 import java.io.BufferedReader;
@@ -20,10 +21,23 @@ public class UI {
     private BufferedReader inputReader;
     private CMD currentCommand;
     private String userInput;
+    private DebuggerVirtualMachine DVM;
+    private boolean isRunning;
+   
     
-    public UI(){
+    
+    public UI(DebuggerVirtualMachine dvm){
         inputReader = new BufferedReader(
                 new InputStreamReader(System.in));
+        DVM = dvm;
+    }
+    
+    public void run(){
+        
+        while(isRunning){
+            this.setUpCommand();
+            this.executeCommandTo(DVM);
+        }
     }
     
     public String getNewUserInput(){
@@ -36,14 +50,14 @@ public class UI {
     }
     
     private boolean isValidCommand(String [] command){
-        boolean isValid = Commands.contains(command[0]);
+        boolean isValidCommand = Commands.contains(command[0]);
         
         try{
-            if(!isValid) throw new InvalidCommandException(userInput);
+            if(!isValidCommand) throw new InvalidCommandException(userInput);
         }catch(InvalidCommandException e){
             
         }finally{
-            return isValid;
+            return isValidCommand;
         }
     }
     
@@ -58,8 +72,7 @@ public class UI {
         do{
             command = tokenize(getNewUserInput());
         }while(!isValidCommand(command));
-        
-        
+    
         return command;
     }
     
@@ -76,18 +89,11 @@ public class UI {
     
     public void suggestHelp(){
         System.out.println("Type ? for help");
+        System.out.println(">>");
     }
     
 
-    
-    public static void main(String args[]){
-        UI test = new UI();
-        DebuggerVirtualMachine dvm = null;
-        while(true){
-            test.setUpCommand();
-            test.executeCommandTo(dvm);
-        }
-    }
+  
 }
 
 class InvalidCommandException extends Exception{

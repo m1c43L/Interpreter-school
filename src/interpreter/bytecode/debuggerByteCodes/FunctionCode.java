@@ -10,25 +10,30 @@ import interpreter.debugger.FunctionEnvironmentRecord;
  * @author Michael
  */
 public class FunctionCode extends ByteCode{
-    private FunctionEnvironmentRecord newFunction;
     
+    private String id;
+    private int start, end;
 
-    @Override
-    public void execute(VirtualMachine VM) {
-       ((DebuggerVirtualMachine)VM).pushFunction(newFunction);
+    
+    public void execute(DebuggerVirtualMachine DVM) {
+        DVM.setCurrentFunctionInfo(id, start, end);
     }
 
     @Override
     public void init(String[] args) {
-        newFunction = new FunctionEnvironmentRecord();
-        newFunction.setFunctionInfo(args[1], Integer.parseInt(args[2]), 
-                Integer.parseInt(args[3]));
-   
+        id =  args[1];
+        start = Integer.parseInt(args[2]);
+        end = Integer.parseInt(args[3]);
     }
 
     @Override
     public boolean dumpCode() {
         return false;
+    }
+
+    @Override
+    public void execute(VirtualMachine VM) {
+        
     }
     
 }

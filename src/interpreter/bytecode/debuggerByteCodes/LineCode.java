@@ -16,10 +16,16 @@ import interpreter.debugger.DebuggerVirtualMachine;
 public class LineCode extends ByteCode {
     private int lineNumber;
     
+    
+    public void execute(DebuggerVirtualMachine DVM){
+         if(lineNumber > 0)
+           DVM.setCurrentLine(lineNumber);
+    }
+    
     @Override
     public void execute(VirtualMachine VM) {
-        if(lineNumber > 0)
-        ((DebuggerVirtualMachine) VM).setCurrentLine(lineNumber);
+       
+        
     }
 
     @Override

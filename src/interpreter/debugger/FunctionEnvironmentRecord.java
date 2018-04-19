@@ -39,6 +39,10 @@ public class FunctionEnvironmentRecord {
         symbols.endScope(numToPop);
     }
     
+    public Object getValueOf(String id){
+         return symbols.get(id);
+    }
+    
     /**
      * prints debug
      */

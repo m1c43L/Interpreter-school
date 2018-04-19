@@ -18,9 +18,13 @@ public class FormalCode extends ByteCode{
     private String id;
     private int value;
     
+    public void execute(DebuggerVirtualMachine DVM){
+        DVM.pushFormal(id, value);
+    }
+    
     @Override
     public void execute(VirtualMachine VM) {
-        ((DebuggerVirtualMachine)VM).pushFormal(id, value);
+        
     }
 
     @Override

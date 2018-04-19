@@ -13,13 +13,28 @@ import interpreter.debugger.DebuggerVirtualMachine;
  */
 public class DisplayVariablesCMD extends CMD{
 
+    private String ids [];
+    
+    
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
         dvm.displayVariables();
+        StringBuffer out = new StringBuffer();
+        for(String s: ids){
+            out.append(s)
+                    .append(" : ")
+                    .append(dvm.getCurrentValueOf(s))
+                    .append(" ");
+        }
     }
 
     @Override
     public void setParameters(String[] inputs) {
+        ids = new String[inputs.length - 1];
+        for(int indx = 1; indx < inputs.length; indx++){
+            ids[indx - 1] = inputs[indx];
+        }
+        
     }
 
     @Override

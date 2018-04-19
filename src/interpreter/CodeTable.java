@@ -34,6 +34,8 @@ public class CodeTable {
         byteCodeTable.put("LINE", "debuggerByteCodes.LineCode");
         byteCodeTable.put("FORMAL", "debuggerByteCodes.FormalCode");
         byteCodeTable.put("FUNCTION", "debuggerByteCodes.FunctionCode");
+        byteCodeTable.replace("CALL", "debuggerByteCodes.DebugCallCode");
+        
     }
     
     public static String get(String code)
