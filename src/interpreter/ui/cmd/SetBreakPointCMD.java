@@ -17,10 +17,11 @@ public class SetBreakPointCMD extends CMD{
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
         for(int i = 0; i < breakPoints.length; i++){
-            if(dvm.canSetBreakPoint(breakPoints[i])) 
-                dvm.setBreakPoint(breakPoints[i]);
-            else
-                System.out.println("Cannot set break point on line: " + breakPoints[i]);
+            if(dvm.canSetBreakPoint(breakPoints[i])){
+                dvm.setBreakPoint(breakPoints[i]); 
+                System.out.println("Break point set on line : " + breakPoints[i]);
+            }else
+                System.out.println("******Cannot set break point on line: " + breakPoints[i]);
         }
     }
 
@@ -36,6 +37,7 @@ public class SetBreakPointCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "set \t\t\t- (Set Break Point)";
+        return "set \t\t- (Set Break Point) Sets break point in the source code. "
+                + "\n\t\t   Each break points in the source code will be marked by '*'";
     }
 }

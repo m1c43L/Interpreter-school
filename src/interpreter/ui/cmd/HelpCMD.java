@@ -6,7 +6,6 @@
 package interpreter.ui.cmd;
 
 import interpreter.debugger.DebuggerVirtualMachine;
-import interpreter.ui.Commands;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +26,7 @@ public class HelpCMD extends CMD {
     public void execute(DebuggerVirtualMachine dvm) {
         System.out.println("***********Commands**************");
         for(Object out: commands){
+            System.out.println();
             System.out.println(((CMD)out).getStringDefinition());
         }
     }
@@ -38,7 +38,7 @@ public class HelpCMD extends CMD {
 
     @Override
     public String getStringDefinition() {
-        return "? \t\t\t- (Help)";
+        return "? \t\t- (Help) Prints all Commands and its definition";
     }
     
 }

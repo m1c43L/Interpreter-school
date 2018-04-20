@@ -15,7 +15,9 @@ public class ContinueExecutionCMD extends CMD{
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
-        dvm.continueExecution();
+        dvm.executeProgram();
+        System.out.println();
+        System.out.println(dvm.getCurrentStringFunc());
     }
 
     @Override
@@ -24,7 +26,7 @@ public class ContinueExecutionCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "continue \t\t- (Continue Execution)";
+        return "continue \t- (Continue Execution) Continue execution until the next break point.";
     }
 
 

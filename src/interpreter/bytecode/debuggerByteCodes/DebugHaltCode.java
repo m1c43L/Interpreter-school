@@ -5,12 +5,15 @@
  */
 package interpreter.bytecode.debuggerByteCodes;
 
-import interpreter.bytecode.PopCode;
-
 /**
  *
  * @author Michael
  */
-public class DebugPopCode extends PopCode{
+public class DebugHaltCode extends interpreter.bytecode.HaltCode{
     
+    @Override
+    public void execute(interpreter.VirtualMachine VM){
+        super.execute(VM);
+        ((interpreter.debugger.DebuggerVirtualMachine)VM).pauseExecution();
+    }
 }

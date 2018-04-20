@@ -54,15 +54,17 @@ public class Interpreter {
             vm = new DebuggerVirtualMachine(program);
             try {
                 ((DebuggerVirtualMachine)vm).loadSourceCode(sourceCodeFile);
-            } catch (Exception ex) {
+                new interpreter.ui.UI(((DebuggerVirtualMachine)vm)).run();
+            } catch (IOException ex) {
                 System.out.println("*********File Not Found*********");
                 System.exit(1);
             }
         }else{
             vm = new VirtualMachine(program);
+            vm.executeProgram();
         }
         
-        vm.executeProgram();
+        
         
     }
     
@@ -85,7 +87,7 @@ public class Interpreter {
     // for testing purpose
     public static void main(String args[]) {
         
-      Interpreter test  = new Interpreter("factorial",".x",".x.cod");
+      Interpreter test  = new Interpreter("fib",".x",".x.cod");
      // Interpreter test = new Interpreter("test.txt");
        test.run();
        

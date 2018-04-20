@@ -96,4 +96,8 @@ public class RunTimeStack {
         runStack.add(i);
         return i;
     }
+    
+    public Object get(int offset){
+        return runStack.get(offset+framePointers.peek());
+    }
 }

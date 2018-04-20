@@ -15,8 +15,8 @@ public class FunctionCode extends ByteCode{
     private int start, end;
 
     
-    public void execute(DebuggerVirtualMachine DVM) {
-        DVM.setCurrentFunctionInfo(id, start, end);
+    public void execute(VirtualMachine VM) {
+        ((DebuggerVirtualMachine)VM).setCurrentFunctionInfo(id, start, end);
     }
 
     @Override
@@ -31,9 +31,5 @@ public class FunctionCode extends ByteCode{
         return false;
     }
 
-    @Override
-    public void execute(VirtualMachine VM) {
-        
-    }
     
 }

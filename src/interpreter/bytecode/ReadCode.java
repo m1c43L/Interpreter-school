@@ -19,10 +19,12 @@ public class ReadCode extends ByteCode{
     
     @Override
     public void execute(VirtualMachine VM) {
-        System.out.print("? ");
+        
         try{
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(System.in));
+            System.out.print("Input :  ");
+            BufferedReader in = 
+                    new BufferedReader(
+                            new InputStreamReader(System.in));
             String line = in.readLine();
             value = Integer.parseInt(line);
             VM.pushRunStack(value);

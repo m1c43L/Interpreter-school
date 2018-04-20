@@ -1,6 +1,8 @@
 
 package interpreter.debugger;
 
+import java.util.Set;
+
 /**
  * MileStone 2.
  * Test the symbol table mechanism.
@@ -41,6 +43,20 @@ public class FunctionEnvironmentRecord {
     
     public Object getValueOf(String id){
          return symbols.get(id);
+    }
+    
+    public Set<String> getIdKeys(){
+        return symbols.keys();
+    }
+    
+    public int getFuncStart() {
+       // if(startingLineNo == null && startingLineNo  < 1) throw new UnInitializedException();
+        return startingLineNo;
+    }
+    
+    public int getFuncEnd(){
+        //if(endingLineNo == null && endingLineNo  < 1) throw new UnInitializedException();
+        return endingLineNo;
     }
     
     /**
@@ -96,6 +112,12 @@ public class FunctionEnvironmentRecord {
         
     }
     */
+}
+
+class UnInitializedException extends Exception{
+    UnInitializedException(){
+        
+    }
 }
 
 

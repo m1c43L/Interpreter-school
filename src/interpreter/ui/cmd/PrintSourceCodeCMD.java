@@ -15,7 +15,7 @@ public class PrintSourceCodeCMD extends CMD{
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
-        dvm.displaySourceCode();
+        System.out.println(dvm.getMarkedSourceCode());
     }
 
     @Override
@@ -24,7 +24,7 @@ public class PrintSourceCodeCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "source \t\t\t- (Print Source Code) ";
+        return "source \t\t- (Print Source Code) Prints the entire source code.";
     }
     
 }

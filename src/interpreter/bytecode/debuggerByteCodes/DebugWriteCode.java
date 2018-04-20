@@ -6,18 +6,16 @@
 package interpreter.bytecode.debuggerByteCodes;
 
 import interpreter.VirtualMachine;
-import interpreter.debugger.DebuggerVirtualMachine;
 
 /**
  *
  * @author Michael
  */
-public class DebugCallCode extends interpreter.bytecode.CallCode{
-    
+public class DebugWriteCode extends interpreter.bytecode.WriteCode{
     
     @Override
     public void execute(VirtualMachine VM){
-        super.execute(VM);
-        ((DebuggerVirtualMachine)VM).pushFunction(new interpreter.debugger.FunctionEnvironmentRecord());
+        System.out.println("*************Write************");
+        super.execute(VM);   
     }
 }

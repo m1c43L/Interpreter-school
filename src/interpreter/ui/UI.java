@@ -5,13 +5,12 @@
  */
 package interpreter.ui;
 
-import interpreter.Program;
+import interpreter.ui.cmd.Commands;
 import interpreter.debugger.DebuggerVirtualMachine;
 import interpreter.ui.cmd.CMD;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 /**
  *
  * @author Michael
@@ -22,7 +21,7 @@ public class UI {
     private CMD currentCommand;
     private String userInput;
     private DebuggerVirtualMachine DVM;
-    private boolean isRunning;
+    
    
     
     
@@ -33,8 +32,9 @@ public class UI {
     }
     
     public void run(){
-        
-        while(isRunning){
+        System.out.println(DVM.getMarkedSourceCode());
+        DVM.executeProgram();
+        while(DVM.isRunning()){
             this.setUpCommand();
             this.executeCommandTo(DVM);
         }
@@ -42,7 +42,8 @@ public class UI {
     
     public String getNewUserInput(){
         try {
-            System.out.print(">");
+            printHeader();
+            
             userInput = inputReader.readLine();
         } catch (IOException ex) {}
         
@@ -64,7 +65,7 @@ public class UI {
     
     
     private String [] tokenize(String input){
-        return input.split("\\s+");
+        return input.split("\\s++");
     }
     
     private String [] getValidCommand(){
@@ -87,9 +88,10 @@ public class UI {
         currentCommand.execute(dvm);
     }
     
-    public void suggestHelp(){
+    public void printHeader(){
+        System.out.println();
         System.out.println("Type ? for help");
-        System.out.println(">>");
+        System.out.print(">");
     }
     
 
@@ -100,6 +102,5 @@ class InvalidCommandException extends Exception{
     
     InvalidCommandException(String message){
         System.out.println("*****Invalid Command: " + message +"*******");
-        System.out.println("Try '?' for help: ");
     }
 }

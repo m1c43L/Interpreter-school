@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interpreter.ui;
+package interpreter.ui.cmd;
 
 import interpreter.ui.cmd.*;
 import java.util.Collection;
@@ -24,8 +24,8 @@ public class Commands{
        commands.put("set", new SetBreakPointCMD());
        commands.put("clear", new ClearBreakPointCMD());
        commands.put("continue", new ContinueExecutionCMD());
-       commands.put("disp-c", new DisplayCurrentFunctionCMD());
-       commands.put("disp-v", new DisplayVariablesCMD());
+       commands.put("dispc", new DisplayCurrentFunctionCMD());
+       commands.put("dispv", new DisplayVariablesCMD());
        commands.put("?", new HelpCMD());
        commands.put("quit", new QuitExecutionCMD());    
        commands.put("source", new PrintSourceCodeCMD());

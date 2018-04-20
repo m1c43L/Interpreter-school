@@ -6,18 +6,16 @@
 package interpreter.bytecode.debuggerByteCodes;
 
 import interpreter.VirtualMachine;
-import interpreter.debugger.DebuggerVirtualMachine;
 
 /**
  *
  * @author Michael
  */
-public class DebugCallCode extends interpreter.bytecode.CallCode{
+public class DebugReadCode extends interpreter.bytecode.ReadCode{
     
     
-    @Override
     public void execute(VirtualMachine VM){
+        System.out.println("***********Read***********");
         super.execute(VM);
-        ((DebuggerVirtualMachine)VM).pushFunction(new interpreter.debugger.FunctionEnvironmentRecord());
     }
 }

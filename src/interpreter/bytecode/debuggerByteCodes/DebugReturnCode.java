@@ -5,19 +5,16 @@
  */
 package interpreter.bytecode.debuggerByteCodes;
 
-import interpreter.VirtualMachine;
-import interpreter.debugger.DebuggerVirtualMachine;
-
 /**
  *
  * @author Michael
  */
-public class DebugCallCode extends interpreter.bytecode.CallCode{
-    
+public class DebugReturnCode extends interpreter.bytecode.ReturnCode{
     
     @Override
-    public void execute(VirtualMachine VM){
+    public void execute(interpreter.VirtualMachine VM){
         super.execute(VM);
-        ((DebuggerVirtualMachine)VM).pushFunction(new interpreter.debugger.FunctionEnvironmentRecord());
+        ((interpreter.debugger.DebuggerVirtualMachine)VM).popFunction();
+        
     }
 }
