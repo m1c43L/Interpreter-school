@@ -32,8 +32,8 @@ public class UI {
     }
     
     public void run(){
-        //DVM.start();
         System.out.println(DVM.getMarkedSourceCode());
+        DVM.executeProgram();
         while(DVM.isRunning()){
             this.setUpCommand();
             this.executeCommandTo(DVM);

@@ -22,14 +22,11 @@ public class LineCode extends ByteCode {
     @Override
     public void execute(VirtualMachine VM) {
         if(lineNumber > 0){
-           
+           ((DebuggerVirtualMachine)VM).setCurrentLine(lineNumber);   
           if(((DebuggerVirtualMachine)VM).isBreakPointSetTo(lineNumber)){
              ((DebuggerVirtualMachine)VM).pauseExecution();
           }
-          ((DebuggerVirtualMachine)VM).setCurrentLineNo(lineNumber);
-          ((DebuggerVirtualMachine)VM).setCurrentERecordLine(lineNumber);
         }
-       
     }
 
     @Override

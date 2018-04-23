@@ -33,6 +33,6 @@ public class ClearBreakPointCMD extends CMD{
     
     @Override
     public String getStringDefinition() {
-        return "clear \t- (Clear Break Point) Remove all the break points set.";
+        return "clear \t\t- (Clear Break Point) Remove all the break points set.";
     }
 }

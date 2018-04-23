@@ -38,7 +38,7 @@ public class HelpCMD extends CMD {
 
     @Override
     public String getStringDefinition() {
-        return "? \t- (Help) Prints all Commands and its definition";
+        return "? \t\t- (Help) Prints all Commands and its definition";
     }
     
 }

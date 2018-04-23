@@ -12,14 +12,14 @@ import java.util.*;
  */
 public class VirtualMachine {
     
-    private int pc;
-    private boolean isRunning, isDumping;
-    private Stack returnAddrs;
-    private RunTimeStack runStack;
-    private Program program;
+    protected int pc;
+    protected boolean isRunning, isDumping;
+    protected Stack returnAddrs;
+    protected RunTimeStack runStack;
+    protected Program program;
     
     
-    
+
     public VirtualMachine(Program newProgram){
         returnAddrs = new Stack();
         program = newProgram;

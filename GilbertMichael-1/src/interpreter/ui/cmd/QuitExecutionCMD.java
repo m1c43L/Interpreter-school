@@ -11,20 +11,22 @@ import interpreter.debugger.DebuggerVirtualMachine;
  *
  * @author Michael
  */
-public class PrintSourceCodeCMD extends CMD{
+public class QuitExecutionCMD extends CMD{
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
-        System.out.println(dvm.getMarkedSourceCode());
+        dvm.haltExecution();
     }
 
     @Override
     public void setParameters(String[] inputs) {
+        
     }
 
     @Override
     public String getStringDefinition() {
-        return "src \t- (Print Source Code) Prints the entire source code.";
+         return "quit \t\t- (Quit Execution) Ends debugger.";
     }
-    
+
+
 }

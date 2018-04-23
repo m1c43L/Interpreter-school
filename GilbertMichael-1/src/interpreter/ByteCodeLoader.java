@@ -35,7 +35,10 @@ public class ByteCodeLoader {
                 byteCodeProgram.add(byteCode);
             }
             
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println("*****Error Loading ByteCodes******");
+            System.exit(1);
+        }
         
         byteCodeProgram.resolveAddress();
         

@@ -100,4 +100,8 @@ public class RunTimeStack {
     public Object get(int offset){
         return runStack.get(offset+framePointers.peek());
     }
+    
+    public int getCurrentFrameOffset(){
+        return framePointers.peek() + runStack.size() - 1;
+    }
 }

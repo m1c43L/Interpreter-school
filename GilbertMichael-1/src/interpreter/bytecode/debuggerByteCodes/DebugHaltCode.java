@@ -9,15 +9,11 @@ package interpreter.bytecode.debuggerByteCodes;
  *
  * @author Michael
  */
-public class DebugLitCode extends interpreter.bytecode.LitCode{
-   
+public class DebugHaltCode extends interpreter.bytecode.HaltCode{
     
     @Override
     public void execute(interpreter.VirtualMachine VM){
         super.execute(VM);
-        if(id != null)
-        ((interpreter.debugger.DebuggerVirtualMachine)VM).pushFormal(id, 
-               ((interpreter.debugger.DebuggerVirtualMachine)VM).getCurrentOffset());
-        
+        ((interpreter.debugger.DebuggerVirtualMachine)VM).pauseExecution();
     }
 }

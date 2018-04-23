@@ -37,7 +37,7 @@ public class SetBreakPointCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "set \t- (Set Break Point) Sets break point in the source code. "
-                + "\n\t   Each break points in the source code will be marked by '*'";
+        return "set \t\t- (Set Break Point) Sets break point in the source code. "
+                + "\n\t\t   Each break points in the source code will be marked by '*'";
     }
 }

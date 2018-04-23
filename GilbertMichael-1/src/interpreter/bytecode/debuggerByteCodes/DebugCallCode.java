@@ -5,19 +5,19 @@
  */
 package interpreter.bytecode.debuggerByteCodes;
 
+import interpreter.VirtualMachine;
+import interpreter.debugger.DebuggerVirtualMachine;
+
 /**
  *
  * @author Michael
  */
-public class DebugLitCode extends interpreter.bytecode.LitCode{
-   
+public class DebugCallCode extends interpreter.bytecode.CallCode{
+    
     
     @Override
-    public void execute(interpreter.VirtualMachine VM){
+    public void execute(VirtualMachine VM){
         super.execute(VM);
-        if(id != null)
-        ((interpreter.debugger.DebuggerVirtualMachine)VM).pushFormal(id, 
-               ((interpreter.debugger.DebuggerVirtualMachine)VM).getCurrentOffset());
-        
+        ((DebuggerVirtualMachine)VM).pushFunction(new interpreter.debugger.FunctionEnvironmentRecord());
     }
 }

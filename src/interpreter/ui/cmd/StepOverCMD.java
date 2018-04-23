@@ -11,20 +11,22 @@ import interpreter.debugger.DebuggerVirtualMachine;
  *
  * @author Michael
  */
-public class PrintSourceCodeCMD extends CMD{
+public class StepOverCMD extends CMD{
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
-        System.out.println(dvm.getMarkedSourceCode());
+        dvm.executeCurrentLine();
+        System.out.println(dvm.getCurrentSourceFunc());
     }
 
     @Override
     public void setParameters(String[] inputs) {
+        
     }
 
     @Override
     public String getStringDefinition() {
-        return "src \t- (Print Source Code) Prints the entire source code.";
+        return "so \t- (Step Over) Steps over a line.";
     }
     
 }

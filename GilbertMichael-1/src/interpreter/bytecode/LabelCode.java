@@ -13,11 +13,11 @@ import interpreter.VirtualMachine;
  */
 public class LabelCode extends ByteCode {
     
-    private String label;
+    protected String label;
     
     @Override
     public void execute(VirtualMachine VM) {
-        return;
+       
     }
 
     @Override

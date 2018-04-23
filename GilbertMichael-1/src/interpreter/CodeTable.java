@@ -30,6 +30,19 @@ public class CodeTable {
         byteCodeTable.put("DUMP", "DumpCode");
     }
     
+    public static void initDebuggerByteCodes(){
+        byteCodeTable.put("LINE", "debuggerByteCodes.LineCode");
+        byteCodeTable.put("FORMAL", "debuggerByteCodes.FormalCode");
+        byteCodeTable.put("FUNCTION", "debuggerByteCodes.FunctionCode");
+        byteCodeTable.replace("CALL", "debuggerByteCodes.DebugCallCode");
+        byteCodeTable.replace("READ",  "debuggerByteCodes.DebugReadCode");
+        byteCodeTable.replace("WRITE",  "debuggerByteCodes.DebugWriteCode");
+        byteCodeTable.replace("HALT", "debuggerByteCodes.DebugHaltCode");
+        byteCodeTable.replace("RETURN", "debuggerByteCodes.DebugReturnCode");
+        byteCodeTable.replace("LIT", "debuggerByteCodes.DebugLitCode");
+        
+    }
+    
     public static String get(String code)
     {
         return byteCodeTable.get(code);

@@ -11,11 +11,13 @@ import interpreter.debugger.DebuggerVirtualMachine;
  *
  * @author Michael
  */
-public class PrintSourceCodeCMD extends CMD{
+public class ContinueExecutionCMD extends CMD{
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
-        System.out.println(dvm.getMarkedSourceCode());
+        dvm.executeProgram();
+        System.out.println();
+        System.out.println(dvm.getCurrentStringFunc());
     }
 
     @Override
@@ -24,7 +26,9 @@ public class PrintSourceCodeCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "src \t- (Print Source Code) Prints the entire source code.";
+        return "continue \t- (Continue Execution) Continue execution until the next break point.";
     }
+
+
     
 }
