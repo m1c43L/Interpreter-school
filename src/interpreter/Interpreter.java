@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 * 3. Run the virtual machine
 *
 *
-*
 * </pre>
 */
 public class Interpreter {

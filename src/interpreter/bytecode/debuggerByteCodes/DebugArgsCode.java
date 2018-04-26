@@ -12,14 +12,13 @@ import interpreter.debugger.DebuggerVirtualMachine;
  *
  * @author Michael
  */
-public class DebugCallCode extends interpreter.bytecode.CallCode{
-    
-    
+public class DebugArgsCode extends interpreter.bytecode.ArgsCode{
+
     @Override
-    public void execute(VirtualMachine VM){
-        super.execute(VM);
-        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
-        DVM.pushFunction(new interpreter.debugger.FunctionEnvironmentRecord());
-        DVM.setCall(true);
+    public void execute(VirtualMachine VM) {
+        super.execute(VM); 
+        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine) VM;
+        DVM.setNumArgs(super.numArgs);
     }
+    
 }

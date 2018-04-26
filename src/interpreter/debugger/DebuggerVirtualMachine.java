@@ -12,7 +12,6 @@ import java.util.Stack;
 
 /**
  * VM for debugger.
- * extends interpreters VM.
  * @author Michael
  */
 public class DebuggerVirtualMachine extends VirtualMachine {
@@ -20,8 +19,8 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     private ArrayList <SourceLineMarker> sourceRecord;
     private Stack <FunctionEnvironmentRecord> funcEnvironmentStack;
-    private int currentLineNo;
-    private boolean isContinuing, isTraceOn;
+    private int currentLineNo, numOfArgs;
+    private boolean isContinuing, isTraceOn, isCall;
   
     
     public DebuggerVirtualMachine(Program newProgram) {
@@ -31,7 +30,7 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         pc = 0;
         currentLineNo = -1;
         runStack = new RunTimeStack();
-        isRunning = true;
+        isRunning = true;      
     }   
     
     
@@ -46,19 +45,42 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     }   
     
     public void executeCurrentLine(){
-        int prevLine = currentLineNo;
-        while(prevLine == currentLineNo){
+        int prevLine = currentLineNo + 1;
+        while(prevLine != currentLineNo){
             executeByteCode();
         }
     }
     
-    private void executeByteCode(){
+    public void executeByteCode(){
         if(!isRunning) return;
         ByteCode code = program.getCode(pc);
                code.execute(this);  
                pc++;
     }
     
+    public void stepIn(){
+        
+    }
+    
+    public void stepOut(){
+        
+    }
+    
+    public boolean isCall(){
+        return isCall;
+    }
+    
+    public void setCall(boolean isCall){
+        this.isCall = isCall;
+    }
+    
+    public void setNumArgs(int num){
+        numOfArgs = num;
+    }
+    
+    public int getNumArgs(){
+        return this.numOfArgs;
+    }
     
     public void setCurrentLineNo(int newLine){
         currentLineNo = newLine;
