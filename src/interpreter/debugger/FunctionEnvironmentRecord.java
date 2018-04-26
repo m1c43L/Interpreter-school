@@ -49,13 +49,15 @@ public class FunctionEnvironmentRecord {
         return symbols.keys();
     }
     
-    public int getFuncStart() throws UnInitializedIdException {
+    public int getFuncStart() throws UnInitializedIdException, IntrinsictException {
         if(startingLineNo == null)throw new UnInitializedIdException();
+        if(startingLineNo < 0) throw new IntrinsictException();
         return startingLineNo;
     }
     
-    public int getFuncEnd() throws UnInitializedIdException{
+    public int getFuncEnd() throws UnInitializedIdException, IntrinsictException{
         if(endingLineNo == null)throw new UnInitializedIdException();
+        if(endingLineNo < 0) throw new IntrinsictException();
         return endingLineNo;
     }
     
@@ -117,6 +119,12 @@ public class FunctionEnvironmentRecord {
 
 class UnInitializedIdException extends Exception{
     UnInitializedIdException(){
+        
+    }
+}
+
+class IntrinsictException extends Exception {
+    IntrinsictException(){
         
     }
 }

@@ -15,7 +15,9 @@ public class StepInCMD extends CMD{
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
+        dvm.stepIn();
         
+        System.out.println(dvm.getCurrentSourceFunc());
     }
 
     @Override
@@ -25,7 +27,7 @@ public class StepInCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "in \t-(Step In) Steps into the current function.";
     }
     
 }

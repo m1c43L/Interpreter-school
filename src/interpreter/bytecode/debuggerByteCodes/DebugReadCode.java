@@ -6,6 +6,7 @@
 package interpreter.bytecode.debuggerByteCodes;
 
 import interpreter.VirtualMachine;
+import interpreter.debugger.DebuggerVirtualMachine;
 
 /**
  *
@@ -14,8 +15,11 @@ import interpreter.VirtualMachine;
 public class DebugReadCode extends interpreter.bytecode.ReadCode{
     
     
+    @Override
     public void execute(VirtualMachine VM){
-        System.out.println("***********Read***********");
         super.execute(VM);
+        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
+        DVM.setIntrinsic("*******READ*******");
+        
     }
 }

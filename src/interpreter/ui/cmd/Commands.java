@@ -26,9 +26,10 @@ public class Commands{
        COMMANDS.put("dc", new DisplayCurrentFunctionCMD());
        COMMANDS.put("dv", new DisplayVariablesCMD());
        COMMANDS.put("?", new HelpCMD());
-       COMMANDS.put("!q", new QuitExecutionCMD());    
+       COMMANDS.put("q", new QuitExecutionCMD());    
        COMMANDS.put("src", new PrintSourceCodeCMD());
        COMMANDS.put("so", new StepOverCMD());
+       COMMANDS.put("in", new StepInCMD());
    }
    
    public static CMD get(String commandName){

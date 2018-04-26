@@ -21,6 +21,7 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     private Stack <FunctionEnvironmentRecord> funcEnvironmentStack;
     private int currentLineNo, numOfArgs;
     private boolean isContinuing, isTraceOn, isCall;
+    private String intrinsic;
   
     
     public DebuggerVirtualMachine(Program newProgram) {
@@ -28,9 +29,11 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         funcEnvironmentStack = new Stack();
         funcEnvironmentStack.push(new FunctionEnvironmentRecord());
         pc = 0;
-        currentLineNo = -1;
+        currentLineNo = 1;
         runStack = new RunTimeStack();
         isRunning = true;      
+        isCall = false;
+        intrinsic = "";
     }   
     
     
@@ -57,17 +60,36 @@ public class DebuggerVirtualMachine extends VirtualMachine {
                code.execute(this);  
                pc++;
     }
-    
+    //look at this
     public void stepIn(){
-        
+        int prevLine = currentLineNo;
+        while(prevLine == currentLineNo){
+            if(isCall){
+                executeLines(numOfArgs + 2);
+                this.pauseExecution();
+                break;
+            }
+            executeByteCode();
+        }
     }
     
     public void stepOut(){
         
     }
     
+    public void setIntrinsic(String newIntrinsic){
+        this.intrinsic = newIntrinsic;
+    }
+    
     public boolean isCall(){
         return isCall;
+    }
+    
+    private void executeLines(int n){
+        while(n > 0){
+            executeByteCode();
+            n--;
+        }
     }
     
     public void setCall(boolean isCall){
@@ -209,6 +231,8 @@ public class DebuggerVirtualMachine extends VirtualMachine {
             }   
         }catch(UnInitializedIdException e){
             sourceCode = new StringBuilder(getMarkedSourceCode());
+        }catch(IntrinsictException ex){
+            sourceCode = new StringBuilder(intrinsic);
         }
         
             return sourceCode.toString();

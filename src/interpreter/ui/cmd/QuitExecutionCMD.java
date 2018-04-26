@@ -25,7 +25,7 @@ public class QuitExecutionCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-         return "!q \t- (Quit Execution) Ends debugger.";
+         return "q \t- (Quit Execution) Ends debugger.";
     }
 
 
