@@ -21,7 +21,7 @@ public class ReadCode extends ByteCode{
     public void execute(VirtualMachine VM) {
         
         try{
-            System.out.print("Input :  ");
+            System.out.print("Read:  ");
             BufferedReader in = 
                     new BufferedReader(
                             new InputStreamReader(System.in));

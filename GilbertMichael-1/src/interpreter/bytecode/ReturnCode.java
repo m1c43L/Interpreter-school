@@ -14,8 +14,8 @@ import interpreter.VirtualMachine;
  */
 public class ReturnCode extends ByteCode{
 
-    private String returnComment;
-    private int returnValue;
+    protected String returnComment;
+    protected int returnValue;
     
     @Override
     public void execute(VirtualMachine VM) {

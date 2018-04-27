@@ -26,7 +26,6 @@ public class HelpCMD extends CMD {
     public void execute(DebuggerVirtualMachine dvm) {
         System.out.println("***********Commands**************");
         for(Object out: commands){
-            System.out.println();
             System.out.println(((CMD)out).getStringDefinition());
         }
     }
@@ -38,7 +37,7 @@ public class HelpCMD extends CMD {
 
     @Override
     public String getStringDefinition() {
-        return "? \t- (Help) Prints all Commands and its definition";
+        return "'?' \t- (Help) Prints all Commands and its definition";
     }
     
 }

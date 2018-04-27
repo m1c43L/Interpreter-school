@@ -19,7 +19,7 @@ public class ClearBreakPointCMD extends CMD{
     public void execute(DebuggerVirtualMachine dvm) {
         for(int i = 0; i < indexList.size(); i++){
             dvm.clearBreakPoint(indexList.get(i));
-            System.out.println("Cleared break point on line :" + indexList.get(i));
+            System.out.println("Cleared break point on line: " + indexList.get(i));
         }
     }
 
@@ -33,6 +33,6 @@ public class ClearBreakPointCMD extends CMD{
     
     @Override
     public String getStringDefinition() {
-        return "clear \t\t- (Clear Break Point) Remove all the break points set.";
+        return "'-' \t- (Clear Break Point) Remove all the break points set.";
     }
 }

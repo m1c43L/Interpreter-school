@@ -25,7 +25,7 @@ public class DisplayCurrentFunctionCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "dc \t- (Display Current Function) Displays the current function.";
+        return "'f' \t- (Display Current Function) Displays the current function.";
     }
 
     

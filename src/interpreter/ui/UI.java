@@ -32,10 +32,9 @@ public class UI {
     }
     
     public void run(){
-        //DVM.start();
         System.out.println(DVM.getMarkedSourceCode());
         while(DVM.isRunning()){
-            this.setUpCommand();
+            this.fetchCommand();
             this.executeCommandTo(DVM);
         }
     }
@@ -77,7 +76,7 @@ public class UI {
         return command;
     }
     
-    public void setUpCommand(){
+    public void fetchCommand(){
         String [] command = getValidCommand();
         currentCommand = Commands.get(command[0]);
         currentCommand.setParameters(command);

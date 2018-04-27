@@ -19,24 +19,22 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     private ArrayList <SourceLineMarker> sourceRecord;
     private Stack <FunctionEnvironmentRecord> funcEnvironmentStack;
-    private int currentLineNo, numOfArgs;
-    private boolean isContinuing, isTraceOn, isCall;
-    private String intrinsic;
-  
+    private int currentLineNo;
+    private boolean isContinuing, isTraceOn;
+    private StringBuilder trace;
     
     public DebuggerVirtualMachine(Program newProgram) {
         super(newProgram);
         funcEnvironmentStack = new Stack();
         funcEnvironmentStack.push(new FunctionEnvironmentRecord());
         pc = 0;
-        currentLineNo = 1;
+        currentLineNo = -1;
         runStack = new RunTimeStack();
         isRunning = true;      
-        isCall = false;
-        intrinsic = "";
+        trace = new StringBuilder("");
+        isTraceOn = false;
     }   
-    
-    
+      
     
     @Override
     public void executeProgram(){    
@@ -60,54 +58,77 @@ public class DebuggerVirtualMachine extends VirtualMachine {
                code.execute(this);  
                pc++;
     }
-    //look at this
+    
     public void stepIn(){
         int prevLine = currentLineNo;
-        while(prevLine == currentLineNo){
-            if(isCall){
-                executeLines(numOfArgs + 2);
-                this.pauseExecution();
-                break;
+        int currentSize = funcEnvironmentStack.size() ;
+        while(prevLine == currentLineNo 
+                && currentSize ==  funcEnvironmentStack.size()){
+            executeByteCode();
+        }
+        if(currentSize + 1 == funcEnvironmentStack.size()){
+            int n = 2 + this.getNumArgs();
+            while(n > 0){
+                executeByteCode();
+                n--;
             }
-            executeByteCode();
+        } 
+    }
+    
+    public void stepOut(){  
+        if(funcEnvironmentStack.size() > 1){
+            int prevSize  = this.funcEnvironmentStack.size() ;
+            while(!isBreakPointSetTo(currentLineNo) 
+                    && prevSize <= funcEnvironmentStack.size()){
+                executeByteCode();
+            }
+            if(funcEnvironmentStack.size() == 1){
+                executeProgram();
+            }    
+        }
+        else{
+            super.haltExecution();
         }
     }
     
-    public void stepOut(){
+    public void stepOver(){
+        int lastLine = currentLineNo, 
+             lastESize = funcEnvironmentStack.size();   
         
-    }
-    
-    public void setIntrinsic(String newIntrinsic){
-        this.intrinsic = newIntrinsic;
-    }
-    
-    public boolean isCall(){
-        return isCall;
-    }
-    
-    private void executeLines(int n){
-        while(n > 0){
-            executeByteCode();
-            n--;
+        while(true){
+            this.executeByteCode();
+            if(lastLine != currentLineNo 
+                    && lastESize == funcEnvironmentStack.size());
         }
     }
     
-    public void setCall(boolean isCall){
-        this.isCall = isCall;
+    public void setTrace(boolean isOn){
+        isTraceOn = isOn;
     }
     
-    public void setNumArgs(int num){
-        numOfArgs = num;
+    public String getSpace(){
+        return this.trace.toString();
     }
     
-    public int getNumArgs(){
-        return this.numOfArgs;
+    public void incremSpace(){
+        this.trace.append(" ");
+    }
+    
+    public void decremSpace(){
+        this.trace.deleteCharAt(trace.length() - 1);
+    }
+    
+    public boolean isTraceOn(){
+        return isTraceOn;
     }
     
     public void setCurrentLineNo(int newLine){
         currentLineNo = newLine;
     }
      
+    public String getCurrentFuncName(){
+        return funcEnvironmentStack.peek().getFuncName();
+    }
     
     public void pauseExecution(){
         isContinuing = false;
@@ -121,6 +142,9 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         return isRunning;
     }
     
+    public int getNumArgs(){
+        return super.runStack.getTopFrameLength();
+    }
      
     public void pushFunction(FunctionEnvironmentRecord function){
         funcEnvironmentStack.push(function);
@@ -232,7 +256,7 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         }catch(UnInitializedIdException e){
             sourceCode = new StringBuilder(getMarkedSourceCode());
         }catch(IntrinsictException ex){
-            sourceCode = new StringBuilder(intrinsic);
+            sourceCode = new StringBuilder("");
         }
         
             return sourceCode.toString();

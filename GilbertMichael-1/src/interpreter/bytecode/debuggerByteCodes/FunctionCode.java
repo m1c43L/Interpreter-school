@@ -3,7 +3,6 @@ package interpreter.bytecode.debuggerByteCodes;
 import interpreter.VirtualMachine;
 import interpreter.bytecode.ByteCode;
 import interpreter.debugger.DebuggerVirtualMachine;
-import interpreter.debugger.FunctionEnvironmentRecord;
 
 /**
  *
@@ -15,8 +14,12 @@ public class FunctionCode extends ByteCode{
     private int start, end;
 
     
+    @Override
     public void execute(VirtualMachine VM) {
-        ((DebuggerVirtualMachine)VM).setCurrentFunctionInfo(id, start, end);
+       // if(start < 1) return;
+        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
+        DVM.setCurrentFunctionInfo(id, start, end);
+      
     }
 
     @Override

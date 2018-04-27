@@ -26,7 +26,7 @@ public class ContinueExecutionCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "c \t- (Continue Execution) Continue execution until the next break point.";
+        return "'c' \t- (Continue Execution) Continue execution until the next break point.";
     }
 
 

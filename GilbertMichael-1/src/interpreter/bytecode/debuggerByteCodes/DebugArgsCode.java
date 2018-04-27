@@ -18,6 +18,7 @@ public class DebugArgsCode extends interpreter.bytecode.ArgsCode{
     public void execute(VirtualMachine VM) {
         super.execute(VM); 
         DebuggerVirtualMachine DVM = (DebuggerVirtualMachine) VM;
+        DVM.setNumArgs(super.numArgs);
     }
     
 }

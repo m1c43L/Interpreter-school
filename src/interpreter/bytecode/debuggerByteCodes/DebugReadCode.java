@@ -19,7 +19,6 @@ public class DebugReadCode extends interpreter.bytecode.ReadCode{
     public void execute(VirtualMachine VM){
         super.execute(VM);
         DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
-        DVM.setIntrinsic("*******READ*******");
         
     }
 }

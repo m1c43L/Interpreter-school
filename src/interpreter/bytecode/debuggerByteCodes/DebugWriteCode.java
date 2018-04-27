@@ -18,6 +18,5 @@ public class DebugWriteCode extends interpreter.bytecode.WriteCode{
     public void execute(VirtualMachine VM){
         super.execute(VM);   
         DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
-        DVM.setIntrinsic("*******WRITE*******");
     }
 }

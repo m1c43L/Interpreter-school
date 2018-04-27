@@ -14,19 +14,33 @@ import interpreter.debugger.DebuggerVirtualMachine;
  * @author Michael
  */
 public class LineCode extends ByteCode {
-    private int lineNumber;
-    
-    
 
-    
+    private int lineNumber;
+
     @Override
     public void execute(VirtualMachine VM) {
-        if(lineNumber > 0){
-           ((DebuggerVirtualMachine)VM).setCurrentLine(lineNumber);   
-          if(((DebuggerVirtualMachine)VM).isBreakPointSetTo(lineNumber)){
-             ((DebuggerVirtualMachine)VM).pauseExecution();
-          }
+        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine) VM;
+        if (lineNumber > 0) {
+
+            if ((DVM).isBreakPointSetTo(lineNumber)) {
+                (DVM).pauseExecution();
+            }
+
+            (DVM).setCurrentLineNo(lineNumber);
+            (DVM).setCurrentERecordLine(lineNumber);
+
+            /*
+            if (DVM.isCall()) {
+                int numArgs = DVM.getNumArgs() ;
+                while (numArgs > 0) {
+                    DVM.executeByteCode();
+                    numArgs--;
+                }
+                DVM.setCall(false);
+            }
+*/
         }
+
     }
 
     @Override
@@ -38,9 +52,9 @@ public class LineCode extends ByteCode {
     public boolean dumpCode() {
         return false;
     }
-    
-    public int getLineNumber(){
+
+    public int getLineNumber() {
         return lineNumber;
     }
-    
+
 }

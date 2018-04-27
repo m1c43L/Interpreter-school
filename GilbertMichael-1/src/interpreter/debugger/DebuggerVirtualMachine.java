@@ -12,7 +12,6 @@ import java.util.Stack;
 
 /**
  * VM for debugger.
- * extends interpreters VM.
  * @author Michael
  */
 public class DebuggerVirtualMachine extends VirtualMachine {
@@ -20,26 +19,121 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     private ArrayList <SourceLineMarker> sourceRecord;
     private Stack <FunctionEnvironmentRecord> funcEnvironmentStack;
-    private int currentLineNo;
-    private boolean isContinuing;
-  
+    private int currentLineNo, numOfArgs;
+    private boolean isContinuing, isTraceOn;
+    private StringBuilder trace;
     
     public DebuggerVirtualMachine(Program newProgram) {
-        super(newProgram);  
-        sourceRecord = new ArrayList();
+        super(newProgram);
         funcEnvironmentStack = new Stack();
         funcEnvironmentStack.push(new FunctionEnvironmentRecord());
         pc = 0;
-        currentLineNo = 1;
+        currentLineNo = -1;
         runStack = new RunTimeStack();
-        isRunning = true;
+        isRunning = true;      
+        trace = new StringBuilder("");
+        isTraceOn = false;
     }   
-   
+      
+    
     @Override
-    public void executeProgram(){     
-        while(isContinuing){ runCycle(); }
+    public void executeProgram(){    
         resumeExecution();
-    }    
+        
+        while(isContinuing){
+            executeByteCode();
+        }
+    }   
+    
+    public void executeCurrentLine(){
+        int prevLine = currentLineNo + 1;
+        while(prevLine != currentLineNo){
+            executeByteCode();
+        }
+    }
+    
+    public void executeByteCode(){
+        if(!isRunning) return;
+        ByteCode code = program.getCode(pc);
+               code.execute(this);  
+               pc++;
+    }
+    //look at this
+    public void stepIn(){
+        int prevLine = currentLineNo;
+        int currentSize = funcEnvironmentStack.size() + 1;
+        while(prevLine == currentLineNo 
+                && currentSize != funcEnvironmentStack.size()){
+            executeByteCode();
+        }
+    }
+    
+    public void stepOut(){  
+        if(funcEnvironmentStack.size() > 1){
+            int prevSize  = this.funcEnvironmentStack.size() ;
+            /*
+            FunctionEnvironmentRecord temp = this.funcEnvironmentStack.pop(),
+                                      prev = this.funcEnvironmentStack.peek();
+            
+            funcEnvironmentStack.push(temp);
+            */
+            while(!isBreakPointSetTo(currentLineNo) 
+                    && prevSize <= funcEnvironmentStack.size()){
+                executeByteCode();
+            }
+            if(funcEnvironmentStack.size() == 1){
+                executeProgram();
+            }
+            
+        }
+        else{
+            super.haltExecution();
+        }
+    }
+    
+    public void stepOver(){
+        int lastLine = currentLineNo, 
+             lastESize = funcEnvironmentStack.size();   
+        
+        while(true){
+            this.executeByteCode();
+            if(lastLine != currentLineNo 
+                    && lastESize == funcEnvironmentStack.size());
+        }
+    }
+    
+    public void setTrace(boolean isOn){
+        isTraceOn = isOn;
+    }
+    
+    public String getSpace(){
+        return this.trace.toString();
+    }
+    
+    public void incremSpace(){
+        this.trace.append(" ");
+    }
+    
+    public void decremSpace(){
+        this.trace.deleteCharAt(trace.length() - 1);
+    }
+    
+    public boolean isTraceOn(){
+        return isTraceOn;
+    }
+    
+    public void setNumArgs(int num){
+        numOfArgs = num;
+    }
+    
+    public int getNumArgs(){
+        return this.numOfArgs;
+    }
+    
+    public void setCurrentLineNo(int newLine){
+        currentLineNo = newLine;
+    }
+     
     
     public void pauseExecution(){
         isContinuing = false;
@@ -53,12 +147,7 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         return isRunning;
     }
     
-    public void runCycle(){
-        ByteCode code = program.getCode(pc);
-               code.execute(this);  
-               pc++;
-    }
-    
+     
     public void pushFunction(FunctionEnvironmentRecord function){
         funcEnvironmentStack.push(function);
     }
@@ -71,25 +160,53 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         funcEnvironmentStack.peek().put(id, value, false);
     }
     
+    public void setCurrentERecordLine(int newLine){
+         funcEnvironmentStack.peek().setCurrentLineNumber(newLine);
+     }
+    
+    
     public void loadSourceCode(String sourceFile) throws FileNotFoundException, IOException{
         sourceRecord = new ArrayList();
         ArrayList possibleBreakPt = program.possibleBreakPts();
-        BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
+        BufferedReader source = new BufferedReader(new FileReader(sourceFile));
         int lineNo = 1;
 
-        // create new instance of sourcelinemarker ask if it can contain
-        // breakpoint add number indent to the line
-        while(reader.ready()){
+        // creates new instance of SourceLineMarker and defines if canbe line num
+        while(source.ready()){
             StringBuilder sourceLine = new StringBuilder();
-            sourceLine.append(lineNo).
-                    append(lineNo < 10? ".  ":". ").
-                    append(reader.readLine());
-           sourceRecord.add(new SourceLineMarker(sourceLine.toString()
+                sourceLine.append(lineNo)
+                        .append(".")
+                        .append(source.readLine());
+            sourceRecord.add(new SourceLineMarker(sourceLine.toString()
                    , possibleBreakPt.contains(lineNo)));
-           lineNo ++;
+            lineNo ++;
+        }
+            indentSourceCode();
+    }
+    
+    private void indentSourceCode(){
+        long marker = 10;
+        StringBuilder indent = new StringBuilder();
+        int sizeOfSource =  sourceRecord.size(), count = 1;
+        
+            while(sizeOfSource > 9){
+                sizeOfSource /= 10;
+                indent.append(" ");
+            }
+            
+        for(SourceLineMarker line: sourceRecord){
+            if(count == marker){
+                indent.deleteCharAt(indent.length() - 1);
+                marker *= 10;
+            }
+            StringBuilder builder = new StringBuilder();
+            builder.append(indent).append(line);
+            line.setLine(builder.toString());
+            count ++;
         }
     }
-     
+    
+    
     public boolean canSetBreakPoint(int line){
         return sourceRecord.get(line - 1 ).isPossibleBreakPt();
     }
@@ -105,6 +222,7 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     public boolean isBreakPointSetTo(int line){
         return sourceRecord.get(line - 1).isBreakptSet();
     }
+    
     
     public String getMarkedSourceCode(){
         int line = 1;
@@ -126,8 +244,8 @@ public class DebuggerVirtualMachine extends VirtualMachine {
                 + sourceRecord.get(lineNo - 1);
     }
     
-    public String getCurrentStringFunc(){ 
-         StringBuilder sourceCode = new StringBuilder();
+    public String getCurrentSourceFunc(){ 
+        StringBuilder sourceCode = new StringBuilder();
         try{
             int start = this.funcEnvironmentStack.peek().getFuncStart(), 
                 end = this.funcEnvironmentStack.peek().getFuncEnd();
@@ -139,19 +257,13 @@ public class DebuggerVirtualMachine extends VirtualMachine {
             }   
         }catch(UnInitializedIdException e){
             sourceCode = new StringBuilder(getMarkedSourceCode());
+        }catch(IntrinsictException ex){
+            sourceCode = new StringBuilder("");
         }
         
             return sourceCode.toString();
     }
     
-    public void setCurrentLine(int newCurrentLineNo){
-        currentLineNo = newCurrentLineNo;
-        funcEnvironmentStack.peek().setCurrentLineNumber(newCurrentLineNo);
-    }
-    
-    public void displayVariables(){
-        funcEnvironmentStack.peek().dump();
-    }
     
     public Object getCurrentValueOf(String id){ 
       return runStack.get((Integer)funcEnvironmentStack.peek().getValueOf(id));
@@ -165,7 +277,7 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         funcEnvironmentStack.peek().setFunctionInfo(id, start, end);
     }
     
-    public void dumpFrames(){
+    public void dumpCurrentFrames(){
         funcEnvironmentStack.peek().dump();
     }
     
@@ -174,6 +286,7 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     }
     
 }
+
 
 /**
  * Source lines with markers
@@ -191,6 +304,9 @@ class SourceLineMarker{
         this.isBreakptSet = false;
     }
    
+    public void setLine(String newLine){
+        sourceLine = newLine;
+    }
     
     public boolean isPossibleBreakPt(){
         return isPossibleBreakPt;

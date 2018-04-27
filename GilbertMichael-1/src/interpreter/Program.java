@@ -48,11 +48,13 @@ public class Program {
     
     public ArrayList<Integer> possibleBreakPts(){
         ArrayList list = new ArrayList();
-        for(ByteCode code: byteCodesList){
-            if(code instanceof LineCode){
-               list.add(((LineCode)code).getLineNumber());
+            
+            for(ByteCode code: byteCodesList){
+                if(code instanceof LineCode){
+                    list.add(((LineCode)code).getLineNumber());
+                }
             }
-        }
+        list.trimToSize();
         return list;
     }
     

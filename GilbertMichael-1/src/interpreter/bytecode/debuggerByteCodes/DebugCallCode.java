@@ -18,6 +18,20 @@ public class DebugCallCode extends interpreter.bytecode.CallCode{
     @Override
     public void execute(VirtualMachine VM){
         super.execute(VM);
-        ((DebuggerVirtualMachine)VM).pushFunction(new interpreter.debugger.FunctionEnvironmentRecord());
+        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
+        DVM.pushFunction(new interpreter.debugger.FunctionEnvironmentRecord());
+        
+        if(DVM.isTraceOn()){
+        int indx = (super.label.contains("<"))?
+                super.label.indexOf('<') : super.label.length();
+        
+        String trace = DVM.getSpace() +
+               super.label.substring(0, indx) + "("
+               + VM.peekRunStack() + ")";
+       
+        System.out.println(trace);
+        }
+      DVM.incremSpace();
+        
     }
 }

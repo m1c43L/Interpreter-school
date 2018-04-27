@@ -5,7 +5,6 @@
  */
 package interpreter.ui.cmd;
 
-import interpreter.ui.cmd.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
@@ -17,31 +16,34 @@ import java.util.Set;
  */
 public class Commands{
     
-   private static HashMap <String,CMD> commands;
+   private static final HashMap <String,CMD> COMMANDS;
    
    static {
-       commands = new HashMap();
-       commands.put("set", new SetBreakPointCMD());
-       commands.put("clear", new ClearBreakPointCMD());
-       commands.put("continue", new ContinueExecutionCMD());
-       commands.put("dispc", new DisplayCurrentFunctionCMD());
-       commands.put("dispv", new DisplayVariablesCMD());
-       commands.put("?", new HelpCMD());
-       commands.put("quit", new QuitExecutionCMD());    
-       commands.put("source", new PrintSourceCodeCMD());
+       COMMANDS = new HashMap();
+       COMMANDS.put("+", new SetBreakPointCMD());
+       COMMANDS.put("-", new ClearBreakPointCMD());
+       COMMANDS.put("c", new ContinueExecutionCMD());
+       COMMANDS.put("f", new DisplayCurrentFunctionCMD());
+       COMMANDS.put("v", new DisplayVariablesCMD());
+       COMMANDS.put("?", new HelpCMD());
+       COMMANDS.put("q", new QuitExecutionCMD());    
+       COMMANDS.put("s", new PrintSourceCodeCMD());
+       COMMANDS.put("l", new StepOverCMD());
+       COMMANDS.put("i", new StepInCMD());
+       COMMANDS.put("o", new StepOutCMD());
+       COMMANDS.put("t", new TraceCMD());
    }
    
    public static CMD get(String commandName){
-       return commands.get(commandName);
+       return COMMANDS.get(commandName);
    }
    
    public static Collection <CMD> getCommands(){
-       return commands.values();
+       return COMMANDS.values();
    }
    
    public static boolean contains(String commandName){
-       return commands.containsKey(commandName);
+       return COMMANDS.containsKey(commandName);
    }
    
-  
 }

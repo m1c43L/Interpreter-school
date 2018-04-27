@@ -16,14 +16,8 @@ public class StepInCMD extends CMD{
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
         dvm.stepIn();
-        if(dvm.getCurrentFuncName() == null){      
-            System.out.println(dvm.getCurrentSourceFunc());
-        }else if(dvm.getCurrentFuncName().equalsIgnoreCase("Read")){
-            System.out.println("*************READ***************");
-        }else if(dvm.getCurrentFuncName().equalsIgnoreCase("Write")){
-            System.out.println("*************WRITE**************");
-        }else
-            System.out.println(dvm.getCurrentSourceFunc());
+        
+        System.out.println(dvm.getCurrentSourceFunc());
     }
 
     @Override

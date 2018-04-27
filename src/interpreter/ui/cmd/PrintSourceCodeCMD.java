@@ -24,7 +24,7 @@ public class PrintSourceCodeCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "src \t- (Print Source Code) Prints the entire source code.";
+        return "'s' \t- (Print Source Code) Prints the entire source code.";
     }
     
 }

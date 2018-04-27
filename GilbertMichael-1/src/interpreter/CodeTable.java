@@ -40,6 +40,7 @@ public class CodeTable {
         byteCodeTable.replace("HALT", "debuggerByteCodes.DebugHaltCode");
         byteCodeTable.replace("RETURN", "debuggerByteCodes.DebugReturnCode");
         byteCodeTable.replace("LIT", "debuggerByteCodes.DebugLitCode");
+        byteCodeTable.replace("ARGS", "debuggerByteCodes.DebugArgsCode");
         
     }
     

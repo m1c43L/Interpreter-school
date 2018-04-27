@@ -16,6 +16,7 @@ public class QuitExecutionCMD extends CMD{
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
         dvm.haltExecution();
+        System.out.println("****************HALT*****************");
     }
 
     @Override
@@ -25,7 +26,7 @@ public class QuitExecutionCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-         return "q \t- (Quit Execution) Ends debugger.";
+         return "'q' \t- (Quit Execution) Ends debugger.";
     }
 
 

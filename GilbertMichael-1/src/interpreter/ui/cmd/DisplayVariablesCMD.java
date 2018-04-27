@@ -42,8 +42,8 @@ public class DisplayVariablesCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "dispv \t\t- (Display Variable) display specified variables in the current scope"
-                + "\n\t\t  (eg. dispv n k). without parameter will print all variables in the current scope";
+        return "'v' \t- (Display Variable) display specified variables in the current scope"
+                + "\n\t  (eg. dispv n k). without parameter will print all variables in the current scope";
     }
 
     

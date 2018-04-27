@@ -33,8 +33,12 @@ public class FunctionEnvironmentRecord {
         currentLineNo = newLineNo;
     }
     
+    public int getCurrentLine(){
+        return currentLineNo;
+    }
+    
     public void put(String var, int val, boolean isBeingWatched){  
-        symbols.put(var, val, isBeingWatched);
+        symbols.put(var, val);
     }
     
     public void pop(int numToPop){
@@ -49,13 +53,15 @@ public class FunctionEnvironmentRecord {
         return symbols.keys();
     }
     
-    public int getFuncStart() throws UnInitializedIdException {
+    public int getFuncStart() throws UnInitializedIdException, IntrinsictException {
         if(startingLineNo == null)throw new UnInitializedIdException();
+        if(startingLineNo < 0) throw new IntrinsictException();
         return startingLineNo;
     }
     
-    public int getFuncEnd() throws UnInitializedIdException{
+    public int getFuncEnd() throws UnInitializedIdException, IntrinsictException{
         if(endingLineNo == null)throw new UnInitializedIdException();
+        if(endingLineNo < 0) throw new IntrinsictException();
         return endingLineNo;
     }
     
@@ -120,15 +126,20 @@ class UnInitializedIdException extends Exception{
         
     }
 }
+
+class IntrinsictException extends Exception {
+    IntrinsictException(){
+        
+    }
+}
 class Binder{
     
     private Object value;
     private String prevTop;   // prior symbol in same scope
     private Binder tail;      // prior binder for same symbol
                             // restore this when closing scope
-    Binder(Object val, String prevTop, Binder tail, boolean isWatching) {
+    Binder(Object val, String prevTop, Binder tail) {
 	this.value=val; this.prevTop=prevTop; this.tail=tail;
-        if(isWatching) System.out.println(prevTop + ": " + value);
     }
 
     Object getValue() { return value; }
@@ -163,8 +174,8 @@ class Binder{
   * Maintain the list of symbols in the current scope (top);<br>
   * Add to list of symbols in prior scope with the same string identifier
   */
-  public void put(String key, Object value, boolean isWatching) {
-	symbols.put(key, new Binder(value, top, symbols.get(key), isWatching));
+  public void put(String key, Object value) {
+	symbols.put(key, new Binder(value, top, symbols.get(key)));
 	top = key;
   }
 

@@ -104,4 +104,8 @@ public class RunTimeStack {
     public int getCurrentFrameOffset(){
         return framePointers.peek() + runStack.size() - 1;
     }
+    
+    public int getTopFrameLength(){
+        return runStack.size() - framePointers.peek();
+    }
 }

@@ -8,7 +8,7 @@ import interpreter.VirtualMachine;
  */
 public class ArgsCode extends ByteCode {
 
-    private int numArgs;
+    protected int numArgs;
     
     @Override
     public void execute(VirtualMachine VM) {

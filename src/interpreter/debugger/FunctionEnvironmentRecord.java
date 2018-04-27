@@ -33,6 +33,10 @@ public class FunctionEnvironmentRecord {
         currentLineNo = newLineNo;
     }
     
+    public int getCurrentLine(){
+        return currentLineNo;
+    }
+    
     public void put(String var, int val, boolean isBeingWatched){  
         symbols.put(var, val);
     }
@@ -59,6 +63,10 @@ public class FunctionEnvironmentRecord {
         if(endingLineNo == null)throw new UnInitializedIdException();
         if(endingLineNo < 0) throw new IntrinsictException();
         return endingLineNo;
+    }
+    
+    public String getFuncName(){
+        return funcName;
     }
     
     /**

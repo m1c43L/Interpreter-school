@@ -5,6 +5,8 @@
  */
 package interpreter.bytecode.debuggerByteCodes;
 
+import interpreter.debugger.DebuggerVirtualMachine;
+
 /**
  *
  * @author Michael
@@ -14,7 +16,18 @@ public class DebugReturnCode extends interpreter.bytecode.ReturnCode{
     @Override
     public void execute(interpreter.VirtualMachine VM){
         super.execute(VM);
-        ((interpreter.debugger.DebuggerVirtualMachine)VM).popFunction();
+        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
+        DVM.popFunction();
+        DVM.decremSpace();
+        if(DVM.isTraceOn()){
+            int indx = (super.returnComment.contains("<"))?
+                super.returnComment.indexOf('<') : super.returnComment.length();
+            String trace = DVM.getSpace() + "exit: " +
+               super.returnComment.substring(0, indx) + ": "
+               + VM.peekRunStack() ;
+       
+        System.out.println(trace);
+        }
         
     }
 }

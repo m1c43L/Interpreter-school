@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 * 3. Run the virtual machine
 *
 *
-*
 * </pre>
 */
 public class Interpreter {
@@ -48,6 +47,7 @@ public class Interpreter {
     }
     
     void run() {
+        System.out.println("****************Debugging " + sourceCodeFile + "**************" );
         Program program = bcl.loadCodes();
         VirtualMachine vm;
         if(isDebugMode){
@@ -82,15 +82,17 @@ public class Interpreter {
         }
             
     }
+}
   /*
    
     // for testing purpose
     public static void main(String args[]) {
         
-      Interpreter test  = new Interpreter("fib",".x",".x.cod");
+      Interpreter test  = new Interpreter("factorial",".x",".x.cod");
      // Interpreter test = new Interpreter("test.txt");
        test.run();
        
     }
-   */
+  
 }
+*/

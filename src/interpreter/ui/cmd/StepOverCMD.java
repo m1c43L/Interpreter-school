@@ -26,7 +26,7 @@ public class StepOverCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "so \t- (Step Over) Steps over a line.";
+        return "'l' \t- (Step Over) Steps over a line.";
     }
     
 }

@@ -15,7 +15,7 @@ public class DisplayCurrentFunctionCMD extends CMD{
 
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
-        System.out.println(dvm.getCurrentStringFunc());
+        System.out.println(dvm.getCurrentSourceFunc());
     }
 
     @Override
@@ -25,7 +25,7 @@ public class DisplayCurrentFunctionCMD extends CMD{
 
     @Override
     public String getStringDefinition() {
-        return "dispc \t\t- (Display Current Function) Displays the current function.";
+        return "'f' \t- (Display Current Function) Displays the current function.";
     }
 
     

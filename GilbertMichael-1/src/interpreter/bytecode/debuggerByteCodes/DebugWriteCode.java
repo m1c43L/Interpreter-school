@@ -6,6 +6,7 @@
 package interpreter.bytecode.debuggerByteCodes;
 
 import interpreter.VirtualMachine;
+import interpreter.debugger.DebuggerVirtualMachine;
 
 /**
  *
@@ -15,7 +16,7 @@ public class DebugWriteCode extends interpreter.bytecode.WriteCode{
     
     @Override
     public void execute(VirtualMachine VM){
-        System.out.println("*************Write************");
         super.execute(VM);   
+        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
     }
 }

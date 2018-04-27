@@ -16,7 +16,7 @@ public class CallCode extends ByteCode{
     
     
     private int address;
-    private String label;
+    protected String label;
     
     @Override
     public void init(String [] args){

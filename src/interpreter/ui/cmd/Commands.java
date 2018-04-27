@@ -20,16 +20,18 @@ public class Commands{
    
    static {
        COMMANDS = new HashMap();
-       COMMANDS.put("set", new SetBreakPointCMD());
-       COMMANDS.put("clear", new ClearBreakPointCMD());
+       COMMANDS.put("+", new SetBreakPointCMD());
+       COMMANDS.put("-", new ClearBreakPointCMD());
        COMMANDS.put("c", new ContinueExecutionCMD());
-       COMMANDS.put("dc", new DisplayCurrentFunctionCMD());
-       COMMANDS.put("dv", new DisplayVariablesCMD());
+       COMMANDS.put("f", new DisplayCurrentFunctionCMD());
+       COMMANDS.put("v", new DisplayVariablesCMD());
        COMMANDS.put("?", new HelpCMD());
        COMMANDS.put("q", new QuitExecutionCMD());    
-       COMMANDS.put("src", new PrintSourceCodeCMD());
-       COMMANDS.put("so", new StepOverCMD());
-       COMMANDS.put("in", new StepInCMD());
+       COMMANDS.put("s", new PrintSourceCodeCMD());
+       COMMANDS.put("l", new StepOverCMD());
+       COMMANDS.put("i", new StepInCMD());
+       COMMANDS.put("o", new StepOutCMD());
+       COMMANDS.put("t", new TraceCMD());
    }
    
    public static CMD get(String commandName){
@@ -44,5 +46,4 @@ public class Commands{
        return COMMANDS.containsKey(commandName);
    }
    
-  
 }
