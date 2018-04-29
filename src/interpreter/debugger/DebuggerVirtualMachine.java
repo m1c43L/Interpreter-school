@@ -78,17 +78,19 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     public void stepOut(){  
         if(funcEnvironmentStack.size() > 1){
             int prevSize  = this.funcEnvironmentStack.size() ;
-            while(!isBreakPointSetTo(currentLineNo) 
-                    && prevSize <= funcEnvironmentStack.size()){
+            while(super.isRunning){              
+                if((prevSize != funcEnvironmentStack.size() 
+                        && isBreakPointSetTo(currentLineNo)) 
+                        || prevSize > funcEnvironmentStack.size()){
+                    break;
+                }
                 executeByteCode();
             }
-            if(funcEnvironmentStack.size() == 1){
-                executeProgram();
-            }    
         }
         else{
-            super.haltExecution();
+            this.executeProgram();
         }
+        
     }
     
     public void stepOver(){
@@ -96,9 +98,9 @@ public class DebuggerVirtualMachine extends VirtualMachine {
              lastESize = funcEnvironmentStack.size();   
         
         while(true){
-            this.executeByteCode();
+               executeByteCode();
             if(lastLine != currentLineNo 
-                    && lastESize == funcEnvironmentStack.size());
+                    && lastESize == funcEnvironmentStack.size()) return;
         }
     }
     
@@ -204,6 +206,15 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         }
     }
     
+    public ArrayList<Integer> getBreakPoints(){
+        ArrayList breakPoints = new ArrayList();
+        for(int i = 1; i <= this.sourceRecord.size(); i++){
+            if(sourceRecord.get(i - 1).isBreakptSet()){
+                breakPoints.add(i);
+            }
+        }
+        return breakPoints;
+    }
     
     public boolean canSetBreakPoint(int line){
         return sourceRecord.get(line - 1 ).isPossibleBreakPt();

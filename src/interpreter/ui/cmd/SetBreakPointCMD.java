@@ -14,8 +14,22 @@ import interpreter.debugger.DebuggerVirtualMachine;
 public class SetBreakPointCMD extends CMD{
     private int [] breakPoints;
 
+    private void printBreakPoints(java.util.ArrayList <Integer> listOfBreakPoints){
+        StringBuilder build = new StringBuilder("Break Point on lines: ");
+        for(int lineNo: listOfBreakPoints){
+            build.append(lineNo).append(" ");
+        }
+        System.out.println(build);
+    }
+    
     @Override
     public void execute(DebuggerVirtualMachine dvm) {
+        
+        if( breakPoints.length == 0){
+            printBreakPoints(dvm.getBreakPoints());
+            return;
+        }
+        
         for(int i = 0; i < breakPoints.length; i++){
             if(dvm.canSetBreakPoint(breakPoints[i])){
                 dvm.setBreakPoint(breakPoints[i]); 
