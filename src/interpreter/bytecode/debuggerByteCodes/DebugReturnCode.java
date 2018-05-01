@@ -25,8 +25,10 @@ public class DebugReturnCode extends interpreter.bytecode.ReturnCode{
             String trace = DVM.getSpace() + "exit: " + function + ": "+ VM.peekRunStack() ;   
         System.out.println(trace);
         }
+        
         DVM.decremSpace();
         DVM.popFunction();
+        DVM.setCurrentLineNo(DVM.getEnvironmentCurLine());
         
     }
 }

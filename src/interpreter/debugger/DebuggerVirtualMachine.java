@@ -77,11 +77,10 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     public void stepOut(){  
         if(funcEnvironmentStack.size() > 1){
-            int prevSize  = this.funcEnvironmentStack.size() ;
-            while(super.isRunning){              
-                if((prevSize != funcEnvironmentStack.size() 
-                        && isBreakPointSetTo(currentLineNo)) 
-                        || prevSize > funcEnvironmentStack.size()){
+            int prevSize  = this.funcEnvironmentStack.size();
+            this.resumeExecution();
+            while(this.isContinuing){              
+                if((funcEnvironmentStack.size() < prevSize)){
                     break;
                 }
                 executeByteCode();
@@ -154,6 +153,10 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     public FunctionEnvironmentRecord popFunction(){
         return funcEnvironmentStack.pop();
+    }
+    
+    public int getEnvironmentCurLine(){
+       return funcEnvironmentStack.peek().getCurrentLine();
     }
     
     public void pushFormal(String id, int value){
