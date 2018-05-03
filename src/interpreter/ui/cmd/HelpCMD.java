@@ -15,18 +15,15 @@ import java.util.List;
  * @author Michael
  */
 public class HelpCMD extends CMD {
-    private List commands;
-    
-    private void printDefinition(String definition){
-        System.out.println(definition);
-    }
+    private List<CMD> commands;
+    private StringBuilder output;
     
 
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
-        System.out.println("***********Commands**************");
-        for(Object out: commands){
-            System.out.println(((CMD)out).getStringDefinition());
+    public void executeTo(DebuggerVirtualMachine dvm) {
+        output = new StringBuilder("***********Commands**************");
+        for(CMD out: commands){     
+            output.append("\n").append(out.definition());
         }
     }
 
@@ -36,8 +33,13 @@ public class HelpCMD extends CMD {
     }
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'?' \t- (Help) Prints all Commands and its definition";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
     
 }

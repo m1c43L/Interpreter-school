@@ -14,12 +14,14 @@ import java.util.ArrayList;
  */
 public class ClearBreakPointCMD extends CMD{
     private ArrayList<Integer> indexList;
+    private StringBuilder output;
 
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
+    public void executeTo(DebuggerVirtualMachine dvm) {
+        output = new StringBuilder("Cleared break point on line(s):");
         for(int i = 0; i < indexList.size(); i++){
             dvm.clearBreakPoint(indexList.get(i));
-            System.out.println("Cleared break point on line: " + indexList.get(i));
+            output.append(indexList.get(i));
         }
     }
 
@@ -32,7 +34,12 @@ public class ClearBreakPointCMD extends CMD{
     }
     
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'-' \t- (Clear Break Point) Remove all the break points set.";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
 }

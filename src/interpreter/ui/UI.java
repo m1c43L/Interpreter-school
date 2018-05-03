@@ -32,10 +32,12 @@ public class UI {
     }
     
     public void run(){
-        System.out.println(DVM.getMarkedSourceCode());
+        System.out.println(DVM.getSourceCode());
         while(DVM.isRunning()){
-            this.fetchCommand();
-            this.executeCommandTo(DVM);
+            System.out.println(DVM.getTrace());
+            fetchCommand();
+            currentCommand.executeTo(DVM); 
+            System.out.println(currentCommand.output());
         }
     }
     
@@ -82,10 +84,6 @@ public class UI {
         currentCommand.setParameters(command);
     }
    
-    
-    public void  executeCommandTo(DebuggerVirtualMachine dvm){
-        currentCommand.execute(dvm);
-    }
     
     public void printHeader(){
         System.out.println();

@@ -12,12 +12,13 @@ import interpreter.debugger.DebuggerVirtualMachine;
  * @author Michael
  */
 public class ContinueExecutionCMD extends CMD{
+    private StringBuilder output;
 
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
+    public void executeTo(DebuggerVirtualMachine dvm) {
         dvm.executeProgram();
-        System.out.println();
-        System.out.println(dvm.getCurrentSourceFunc());
+        output = new StringBuilder();
+        output.append(dvm.getCurrentSourceFunc());
     }
 
     @Override
@@ -25,9 +26,16 @@ public class ContinueExecutionCMD extends CMD{
     }
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'c' \t- (Continue Execution) Continue execution until the next break point.";
     }
+
+    @Override
+    public StringBuilder output() {
+        return output;
+    }
+    
+    
 
 
     

@@ -53,7 +53,7 @@ public class Interpreter {
         if(isDebugMode){
             vm = new DebuggerVirtualMachine(program);
             try {
-                ((DebuggerVirtualMachine)vm).loadSourceCode(sourceCodeFile);
+                ((DebuggerVirtualMachine)vm).initSourceRecord(sourceCodeFile);
                 new interpreter.ui.UI(((DebuggerVirtualMachine)vm)).run();
             } catch (IOException ex) {
                 System.out.println("*********File Not Found*********");

@@ -16,20 +16,11 @@ public class FunctionCode extends ByteCode{
     
     @Override
     public void execute(VirtualMachine VM) {
-        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM; 
-        
-        int indx = (name.contains("<"))?
-                name.indexOf('<') : name.length();
-        name = name.substring(0, indx);
+        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;       
+        formatName();
         DVM.setCurrentFunctionInfo(name, start, end);
-        DVM.incremSpace();
-        if(DVM.isTraceOn()){
-        String args = (DVM.getNumArgs() >  0)? "" + DVM.peekRunStack() : "";
-        String trace = DVM.getSpace() + name + "("+ args + ")";
-        System.out.println(trace);
-        }
-      
-      
+        DVM.buildCallTrace();
+        DVM.incremTraceIndent();
     }
 
     @Override
@@ -44,5 +35,9 @@ public class FunctionCode extends ByteCode{
         return false;
     }
 
+    private void formatName(){
+        int index = name.indexOf('<');
+        name = name.substring(0, (index >  -1)? index : name.length() );
+    }
     
 }

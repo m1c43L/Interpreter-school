@@ -13,8 +13,7 @@ import interpreter.debugger.DebuggerVirtualMachine;
  */
 public abstract class CMD {
     
-    
-    public abstract void execute(DebuggerVirtualMachine dvm);
+    public abstract void executeTo(DebuggerVirtualMachine dvm);
     
     /**
      * set all
@@ -25,6 +24,8 @@ public abstract class CMD {
      */
     public abstract void setParameters(String [] inputs);
     
-    public abstract String getStringDefinition();
+    public abstract String definition();
+    
+    public abstract StringBuilder output();
     
 }

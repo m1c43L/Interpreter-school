@@ -12,11 +12,12 @@ import interpreter.debugger.DebuggerVirtualMachine;
  * @author Michael
  */
 public class StepOutCMD extends CMD{
+    private StringBuilder output;
 
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
+    public void executeTo(DebuggerVirtualMachine dvm) {
         dvm.stepOut();
-        System.out.println(dvm.getCurrentSourceFunc());
+        output = new StringBuilder(dvm.getCurrentSourceFunc());
     }
 
     @Override
@@ -25,8 +26,13 @@ public class StepOutCMD extends CMD{
     }
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'o' \t- (Step Out) Steps out of the current activation recod.";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
     
 }

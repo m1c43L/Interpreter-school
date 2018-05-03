@@ -12,18 +12,12 @@ import interpreter.debugger.DebuggerVirtualMachine;
  * @author Michael
  */
 public class StepInCMD extends CMD{
-
+    private StringBuilder output;
+    
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
+    public void executeTo(DebuggerVirtualMachine dvm) {
         dvm.stepIn();
-        if(dvm.getCurrentFuncName() == null){      
-            System.out.println(dvm.getCurrentSourceFunc());
-        }else if(dvm.getCurrentFuncName().equalsIgnoreCase("Read")){
-            System.out.println("*************READ***************");
-        }else if(dvm.getCurrentFuncName().equalsIgnoreCase("Write")){
-            System.out.println("*************WRITE**************");
-        }else
-            System.out.println(dvm.getCurrentSourceFunc());
+        output = new StringBuilder(dvm.getCurrentSourceFunc());
     }
 
     @Override
@@ -32,8 +26,13 @@ public class StepInCMD extends CMD{
     }
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'i' \t- (Step In) Steps into the current function.";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
     
 }

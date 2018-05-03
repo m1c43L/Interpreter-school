@@ -17,11 +17,15 @@ import java.util.Stack;
 public class DebuggerVirtualMachine extends VirtualMachine {
     
     
-    private ArrayList <SourceLineMarker> sourceRecord;
+    private ArrayList <SourceLine> sourceRecord;
     private Stack <FunctionEnvironmentRecord> funcEnvironmentStack;
     private int currentLineNo;
-    private boolean isContinuing, isTraceOn;
-    private StringBuilder trace;
+    private boolean isContinuing, 
+                    isTraceOn;
+    private StringBuilder indents,
+                          trace; 
+    
+    
     
     public DebuggerVirtualMachine(Program newProgram) {
         super(newProgram);
@@ -31,8 +35,9 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         currentLineNo = -1;
         runStack = new RunTimeStack();
         isRunning = true;      
-        trace = new StringBuilder("");
+        indents = new StringBuilder();
         isTraceOn = false;
+        trace = new StringBuilder();
     }   
       
     
@@ -106,31 +111,59 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     public void setTrace(boolean isOn){
         isTraceOn = isOn;
     }
-    
-    public String getSpace(){
-        return this.trace.toString();
+   
+    public int getFuncEnvSize(){
+        return this.funcEnvironmentStack.size();
     }
     
-    public void incremSpace(){
-        this.trace.append(" ");
+    public void incremTraceIndent(){
+        indents.append(" ");
     }
     
-    public void decremSpace(){
-        this.trace.deleteCharAt(trace.length() - 1);
+    public void decremTraceIndent(){
+        indents.deleteCharAt(indents.length() - 1);
     }
     
     public boolean isTraceOn(){
         return isTraceOn;
     }
     
+    private String getCurrentFuncName(){
+        return this.funcEnvironmentStack.peek().getFuncName();
+    }
+    
+    
+   public void buildCallTrace(){
+       if(!isTraceOn) return;
+       trace.append(
+               new StringBuilder(indents)
+                .append(getCurrentFuncName())
+                .append("(")
+                .append((getNumArgs() > 0)? super.peekRunStack() : "")
+                .append(")") 
+                .append("\n") 
+       );
+   }
+   
+   public void buildReturnTrace(){
+       if(!isTraceOn) return;
+       trace.append(
+               new StringBuilder(indents)
+                .append("exit: ")
+                .append(getCurrentFuncName())
+                .append((getNumArgs() > 0)? ": " + super.peekRunStack() : "")
+                .append("\n") 
+       );
+   }
+    
+    public String getTrace(){
+        return trace.toString();
+    }
+    
     public void setCurrentLineNo(int newLine){
         currentLineNo = newLine;
     }
      
-    public String getCurrentFuncName(){
-        return funcEnvironmentStack.peek().getFuncName();
-    }
-    
     public void pauseExecution(){
         isContinuing = false;
     }
@@ -168,36 +201,43 @@ public class DebuggerVirtualMachine extends VirtualMachine {
      }
     
     
-    public void loadSourceCode(String sourceFile) throws FileNotFoundException, IOException{
+    public void initSourceRecord(String sourceFile) throws FileNotFoundException, IOException{
         sourceRecord = new ArrayList();
-        ArrayList possibleBreakPt = program.possibleBreakPts();
-        BufferedReader source = new BufferedReader(new FileReader(sourceFile));
+        ArrayList possibleBreakPt = program.getPossibleBreakPts();      
+        BufferedReader sourceReader = new BufferedReader(new FileReader(sourceFile));
         int lineNo = 1;
 
-        // creates new instance of SourceLineMarker and defines if canbe line num
-        while(source.ready()){
-            StringBuilder sourceLine = new StringBuilder();
-                sourceLine.append(lineNo)
-                        .append(".")
-                        .append(source.readLine());
-            sourceRecord.add(new SourceLineMarker(sourceLine.toString()
-                   , possibleBreakPt.contains(lineNo)));
+        //load, format and add to sourceRecord the source code line by line 
+        while(sourceReader.ready()){
+            boolean canBeBreakPoint = possibleBreakPt.contains(lineNo);
+            String sourceLine =  makeSourceLine(lineNo,sourceReader.readLine());
+            sourceRecord.add(new SourceLine(sourceLine, canBeBreakPoint));   
             lineNo ++;
         }
-            indentSourceCode();
+        
+        indentSourceCode();
     }
     
+    private String makeSourceLine(int lineNum, String sourceLine){
+        return (new StringBuilder()
+                .append(lineNum )
+                .append(".")
+                .append(sourceLine))
+                .toString();
+    }
+
     private void indentSourceCode(){
         long marker = 10;
         StringBuilder indent = new StringBuilder();
-        int sizeOfSource =  sourceRecord.size(), count = 1;
+        int sizeOfSource =  sourceRecord.size(), 
+                count = 1;
         
             while(sizeOfSource > 9){
                 sizeOfSource /= 10;
                 indent.append(" ");
             }
             
-        for(SourceLineMarker line: sourceRecord){
+        for(SourceLine line: sourceRecord){
             if(count == marker){
                 indent.deleteCharAt(indent.length() - 1);
                 marker *= 10;
@@ -236,11 +276,11 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     }
     
     
-    public String getMarkedSourceCode(){
+    public String getSourceCode(){
         int line = 1;
         StringBuilder sourceCode = new StringBuilder();
         
-        for(SourceLineMarker sourceLine: sourceRecord){
+        for(SourceLine sourceLine: sourceRecord){
             sourceCode.append((isBreakPointSetTo(line)? "*":" "))
                     .append(sourceLine)
                     .append((line == currentLineNo)? "\t <-------------------------------":"")
@@ -251,29 +291,38 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         return sourceCode.toString();
     }
     
-    private String getMarkedSourceLine(int lineNo){
+    private String getSourceLine(int lineNo){
         return (this.isBreakPointSetTo(lineNo)? "*":" ") 
                 + sourceRecord.get(lineNo - 1);
     }
     
-    public String getCurrentSourceFunc(){ 
-        StringBuilder sourceCode = new StringBuilder();
-        try{
-            int start = this.funcEnvironmentStack.peek().getFuncStart(), 
-                end = this.funcEnvironmentStack.peek().getFuncEnd();
+    private StringBuilder getFuncBuilder() throws UnInitializedIdException, IntrinsictException{
+        StringBuilder funcBuilder = new StringBuilder();
+        int start = this.funcEnvironmentStack.peek().getFuncStart(), 
+            end = this.funcEnvironmentStack.peek().getFuncEnd();
 
             for(int i = start; i <= end; i++ ){
-                sourceCode.append(getMarkedSourceLine(i))
-                        .append((i == currentLineNo)? "\t <-------------------------------":"")
+                funcBuilder.append(getSourceLine(i))
+                        .append((i == currentLineNo)? 
+                                "\t <-------------------------------":"")
                         .append("\n");
-            }   
+            }
+        return funcBuilder;
+    }
+    
+    public String getCurrentSourceFunc(){ 
+        StringBuilder sourceCode;
+        try{
+           sourceCode = getFuncBuilder();
         }catch(UnInitializedIdException e){
-            sourceCode = new StringBuilder(getMarkedSourceCode());
+            sourceCode = new StringBuilder(getSourceCode());
         }catch(IntrinsictException ex){
-            sourceCode = new StringBuilder("");
-        }
-        
-            return sourceCode.toString();
+            sourceCode = new StringBuilder();
+            sourceCode.append("**********").
+                       append(funcEnvironmentStack.peek().getFuncName()).
+                       append("**********");
+        }      
+        return sourceCode.toString();
     }
     
     
@@ -304,13 +353,13 @@ public class DebuggerVirtualMachine extends VirtualMachine {
  * Source lines with markers
  * @author Michael
  */
-class SourceLineMarker{
+class SourceLine{
     
     private String sourceLine;
     private boolean isBreakptSet, isPossibleBreakPt;
     
     
-    public SourceLineMarker(String sourceLine, boolean isPossibleBreakPt){
+    public SourceLine(String sourceLine, boolean isPossibleBreakPt){
         this.sourceLine = sourceLine;
         this.isPossibleBreakPt = isPossibleBreakPt;
         this.isBreakptSet = false;

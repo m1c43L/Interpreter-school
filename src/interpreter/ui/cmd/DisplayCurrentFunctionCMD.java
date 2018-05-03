@@ -12,10 +12,12 @@ import interpreter.debugger.DebuggerVirtualMachine;
  * @author Michael
  */
 public class DisplayCurrentFunctionCMD extends CMD{
+    private StringBuilder output;
 
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
-        System.out.println(dvm.getCurrentSourceFunc());
+    public void executeTo(DebuggerVirtualMachine dvm) {
+        output = new StringBuilder(dvm.getCurrentSourceFunc());
+    
     }
 
     @Override
@@ -24,8 +26,13 @@ public class DisplayCurrentFunctionCMD extends CMD{
     }
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'f' \t- (Display Current Function) Displays the current function.";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
 
     

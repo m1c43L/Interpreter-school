@@ -12,11 +12,12 @@ import interpreter.debugger.DebuggerVirtualMachine;
  * @author Michael
  */
 public class QuitExecutionCMD extends CMD{
+    private StringBuilder output;
 
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
+    public void executeTo(DebuggerVirtualMachine dvm) {
         dvm.haltExecution();
-        System.out.println("****************HALT*****************");
+        output = new StringBuilder("**************HALT*****************");
     }
 
     @Override
@@ -25,8 +26,13 @@ public class QuitExecutionCMD extends CMD{
     }
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
          return "'q' \t- (Quit Execution) Ends debugger.";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
 
 

@@ -15,19 +15,21 @@ import java.util.logging.Logger;
  */
 public class TraceCMD extends CMD{
 
-    
     private String param;
+    private StringBuilder output;
+    
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
+    public void executeTo(DebuggerVirtualMachine dvm) {
+        output = new StringBuilder();
         if(param.equals("")){
-            System.out.println(dvm.isTraceOn()? "Trace is ON":"Trace is OFF");
+            output.append(dvm.isTraceOn()? "Trace is ON":"Trace is OFF");
         }else{
             if(param.equalsIgnoreCase("y")){
                 dvm.setTrace(true);
-                System.out.println(dvm.isTraceOn()? "Trace is ON":"Trace is OFF");
+                output.append("Trace set to ON.");
             }else if(param.equalsIgnoreCase("n")){
                 dvm.setTrace(false);
-                System.out.println(dvm.isTraceOn()? "Trace is ON":"Trace is OFF");
+                output.append("Trace set to OFF");
             }else
                System.out.println("Invalid parameter: " + param);
         }
@@ -42,9 +44,14 @@ public class TraceCMD extends CMD{
     }
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'t' \t- (Set trace) t <option>; 'y' to turn on; 'n' to turn off; blank to print the state. "
                 + "\n\t  (eg. 't y'  - will turn on trace mode; 't' will print 'Trace is ON')";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
     
 }

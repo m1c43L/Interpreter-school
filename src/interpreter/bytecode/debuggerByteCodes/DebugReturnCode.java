@@ -19,16 +19,10 @@ public class DebugReturnCode extends interpreter.bytecode.ReturnCode{
         DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
         
         
-        if(DVM.isTraceOn()){
-            String function = DVM.getCurrentFuncName();
-
-            String trace = DVM.getSpace() + "exit: " + function + ": "+ VM.peekRunStack() ;   
-        System.out.println(trace);
-        }
-        
-        DVM.decremSpace();
+        DVM.decremTraceIndent(); 
+        DVM.buildReturnTrace();
         DVM.popFunction();
         DVM.setCurrentLineNo(DVM.getEnvironmentCurLine());
-        
     }
+    
 }

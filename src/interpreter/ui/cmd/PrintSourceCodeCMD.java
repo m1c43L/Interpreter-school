@@ -12,10 +12,11 @@ import interpreter.debugger.DebuggerVirtualMachine;
  * @author Michael
  */
 public class PrintSourceCodeCMD extends CMD{
+    private StringBuilder output;
 
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
-        System.out.println(dvm.getMarkedSourceCode());
+    public void executeTo(DebuggerVirtualMachine dvm) {
+        output = new StringBuilder(dvm.getSourceCode());
     }
 
     @Override
@@ -23,8 +24,13 @@ public class PrintSourceCodeCMD extends CMD{
     }
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'s' \t- (Print Source Code) Prints the entire source code.";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
     
 }

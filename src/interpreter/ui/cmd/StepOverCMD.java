@@ -12,11 +12,12 @@ import interpreter.debugger.DebuggerVirtualMachine;
  * @author Michael
  */
 public class StepOverCMD extends CMD{
-
+    private StringBuilder output;
+    
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
+    public void executeTo(DebuggerVirtualMachine dvm) {
         dvm.executeCurrentLine();
-        System.out.println(dvm.getCurrentSourceFunc());
+        output = new StringBuilder(dvm.getCurrentSourceFunc());
     }
 
     @Override
@@ -25,8 +26,13 @@ public class StepOverCMD extends CMD{
     }
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'l' \t- (Step Over) Steps over a line.";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
     
 }

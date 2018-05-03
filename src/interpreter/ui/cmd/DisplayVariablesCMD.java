@@ -14,21 +14,21 @@ import interpreter.debugger.DebuggerVirtualMachine;
 public class DisplayVariablesCMD extends CMD{
 
     private String ids [];
-
+    private StringBuilder output;
     
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
+    public void executeTo(DebuggerVirtualMachine dvm) {
         if(ids.length == 0){
            ids = dvm.getAllVariables().toArray(new String[0]);
         }
-        StringBuffer out = new StringBuffer();
-        for(String s: ids){
-            out.append(s)
-                    .append(" : ")
-                    .append(dvm.getCurrentValueOf(s))
-                    .append(" ");
+        output = new StringBuilder();
+        for(String id: ids){
+            output.append(id)
+                  .append(" : ")
+                  .append(dvm.getCurrentValueOf(id))
+                  .append(" ");
         }
-        System.out.println(out);
+  
     }
 
     @Override
@@ -41,9 +41,14 @@ public class DisplayVariablesCMD extends CMD{
     }
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'v' \t- (Display Variable) display specified variables in the current scope"
                 + "\n\t  (eg. dispv n k). without parameter will print all variables in the current scope";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
 
     

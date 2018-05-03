@@ -46,7 +46,7 @@ public class Program {
         return (int)address.get(label);
     }
     
-    public ArrayList<Integer> possibleBreakPts(){
+    public ArrayList<Integer> getPossibleBreakPts(){
         ArrayList list = new ArrayList();
             
             for(ByteCode code: byteCodesList){

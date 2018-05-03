@@ -13,29 +13,34 @@ import interpreter.debugger.DebuggerVirtualMachine;
  */
 public class SetBreakPointCMD extends CMD{
     private int [] breakPoints;
+    private StringBuilder output;
 
-    private void printBreakPoints(java.util.ArrayList <Integer> listOfBreakPoints){
-        StringBuilder build = new StringBuilder("Break Point on lines: ");
+    private void appendBreakPoints(java.util.ArrayList <Integer> listOfBreakPoints){
+        output = new StringBuilder((listOfBreakPoints.size() > 0)? 
+                "Break Point on lines: " : "No break point set.");
         for(int lineNo: listOfBreakPoints){
-            build.append(lineNo).append(" ");
+            output.append(lineNo).append(" ");
         }
-        System.out.println(build);
     }
     
     @Override
-    public void execute(DebuggerVirtualMachine dvm) {
+    public void executeTo(DebuggerVirtualMachine dvm) {
         
         if( breakPoints.length == 0){
-            printBreakPoints(dvm.getBreakPoints());
+            appendBreakPoints(dvm.getBreakPoints());
             return;
         }
-        
+        output = new StringBuilder();
         for(int i = 0; i < breakPoints.length; i++){
             if(dvm.canSetBreakPoint(breakPoints[i])){
                 dvm.setBreakPoint(breakPoints[i]); 
-                System.out.println("Break point set on line : " + breakPoints[i]);
+                output.append("Break point set on line: ")
+                      .append(breakPoints[i])
+                      .append("\n");           
             }else
-                System.out.println("******Cannot set break point on line: " + breakPoints[i]);
+                output.append("******Cannot be set break point on line: ")
+                      .append(breakPoints[i])
+                      .append("\n");
         }
     }
 
@@ -50,8 +55,13 @@ public class SetBreakPointCMD extends CMD{
     
 
     @Override
-    public String getStringDefinition() {
+    public String definition() {
         return "'+' \t- (Set Break Point) Sets break point in the source code. "
                 + "\n\t   Each break points in the source code will be marked by '*'";
+    }
+
+    @Override
+    public StringBuilder output() {
+        return output;
     }
 }
