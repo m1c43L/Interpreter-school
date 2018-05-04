@@ -16,7 +16,7 @@ public class StepOverCMD extends CMD{
     
     @Override
     public void executeTo(DebuggerVirtualMachine dvm) {
-        dvm.executeCurrentLine();
+        dvm.stepOver();
         output = new StringBuilder(dvm.getCurrentSourceFunc());
     }
 

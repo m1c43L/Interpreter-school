@@ -3,41 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/QuitExecutionCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/Commands.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/VirtualMachine.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/StepOverCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/DebugReadCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/StepInCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/CallCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/DebugWriteCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/FormalCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/GotoCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/DebugCallCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/ContinueExecutionCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/RunTimeStack.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/DisplayVariablesCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/StepOutCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/debugger/FunctionEnvironmentRecord.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/PrintSourceCodeCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/LabelCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/ClearBreakPointCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/ReadCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/Interpreter.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/DebugReturnCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/SetBreakPointCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/Program.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/BopCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/CodeTable.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/HelpCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/DumpCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/debugger/DebuggerVirtualMachine.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/UI.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ByteCodeLoader.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/FunctionCode.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/CMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/TraceCMD.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/Interpreter-school/src/interpreter/ui/cmd/DisplayCurrentFunctionCMD.java</file>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/bytecode/debuggerByteCodes/LineCode.java</file>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/ui/cmd/StepOverCMD.java</file>
+            <file>file:/C:/Users/Michael/Documents/Myprojects/Interpreter-school/src/interpreter/debugger/DebuggerVirtualMachine.java</file>
         </group>
     </open-files>
 </project-private>

@@ -25,20 +25,8 @@ public class LineCode extends ByteCode {
             if ((DVM).isBreakPointSetTo(lineNumber)) {
                 (DVM).pauseExecution();
             }
-
             (DVM).setCurrentLineNo(lineNumber);
             (DVM).setCurrentERecordLine(lineNumber);
-
-            /*
-            if (DVM.isCall()) {
-                int numArgs = DVM.getNumArgs() ;
-                while (numArgs > 0) {
-                    DVM.executeByteCode();
-                    numArgs--;
-                }
-                DVM.setCall(false);
-            }
-*/
         }
 
     }

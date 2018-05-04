@@ -84,7 +84,7 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         if(funcEnvironmentStack.size() > 1){
             int prevSize  = this.funcEnvironmentStack.size();
             this.resumeExecution();
-            while(this.isContinuing){              
+            while(isContinuing){              
                 if((funcEnvironmentStack.size() < prevSize)){
                     break;
                 }
@@ -93,18 +93,18 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         }
         else{
             this.executeProgram();
-        }
-        
+        }  
     }
     
     public void stepOver(){
         int lastLine = currentLineNo, 
-             lastESize = funcEnvironmentStack.size();   
-        
-        while(true){
+            lastESize = funcEnvironmentStack.size();   
+        resumeExecution();
+        while(isContinuing){
                executeByteCode();
-            if(lastLine != currentLineNo 
-                    && lastESize == funcEnvironmentStack.size()) return;
+            if((lastLine != currentLineNo 
+                    && lastESize == funcEnvironmentStack.size())) 
+                return;
         }
     }
     
@@ -385,6 +385,7 @@ class SourceLine{
         isBreakptSet = false;
     }
     
+    @Override
     public String toString(){
         return sourceLine;
     }

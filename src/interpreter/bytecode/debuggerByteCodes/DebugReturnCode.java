@@ -16,9 +16,7 @@ public class DebugReturnCode extends interpreter.bytecode.ReturnCode{
     @Override
     public void execute(interpreter.VirtualMachine VM){
         super.execute(VM);
-        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
-        
-        
+        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;  
         DVM.decremTraceIndent(); 
         DVM.buildReturnTrace();
         DVM.popFunction();

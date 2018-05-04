@@ -87,7 +87,6 @@ public class RunTimeStack {
     }
     
     public int load(int offset){
-        //System.out.println(framePointers);
         runStack.add(runStack.get(offset + framePointers.peek())); 
         return this.peek();
     }
