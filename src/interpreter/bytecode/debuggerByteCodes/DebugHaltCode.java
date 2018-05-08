@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package interpreter.bytecode.debuggerByteCodes;
-
+import interpreter.debugger.DebuggerVirtualMachine;
 /**
  *
  * @author Michael
@@ -14,6 +14,8 @@ public class DebugHaltCode extends interpreter.bytecode.HaltCode{
     @Override
     public void execute(interpreter.VirtualMachine VM){
         super.execute(VM);
-        ((interpreter.debugger.DebuggerVirtualMachine)VM).pauseExecution();
+        DebuggerVirtualMachine DVM = (DebuggerVirtualMachine) VM;
+        DVM.pauseExecution();
+        DVM.setTrace(false);
     }
 }

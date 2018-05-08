@@ -32,6 +32,7 @@ public class Commands{
        COMMANDS.put("i", new StepInCMD());
        COMMANDS.put("o", new StepOutCMD());
        COMMANDS.put("t", new TraceCMD());
+       COMMANDS.put("p", new PrintCallStackCMD());
    }
    
    public static CMD get(String commandName){

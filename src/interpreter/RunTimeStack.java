@@ -107,4 +107,13 @@ public class RunTimeStack {
     public int getTopFrameLength(){
         return runStack.size() - framePointers.peek();
     }
+    
+    public Object [] getParameters(){
+        int lastIndex = runStack.size();
+        Object [] items = new Object[getTopFrameLength()];
+        for(int i = lastIndex - getTopFrameLength(); i  < lastIndex; i++){
+            items[(i + getTopFrameLength()) - lastIndex] = runStack.get(i);
+        }
+        return items;
+    }
 }

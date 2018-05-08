@@ -19,6 +19,7 @@ public class DebugCallCode extends interpreter.bytecode.CallCode{
     public void execute(VirtualMachine VM){
         super.execute(VM);
         DebuggerVirtualMachine DVM = (DebuggerVirtualMachine)VM;
+        DVM.pushCallStack();
         DVM.pushFunction(new interpreter.debugger.FunctionEnvironmentRecord());       
     }
 }

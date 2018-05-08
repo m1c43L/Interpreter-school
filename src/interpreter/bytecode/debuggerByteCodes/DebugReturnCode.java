@@ -21,6 +21,7 @@ public class DebugReturnCode extends interpreter.bytecode.ReturnCode{
         DVM.buildReturnTrace();
         DVM.popFunction();
         DVM.setCurrentLineNo(DVM.getEnvironmentCurLine());
+        DVM.popCallStack();
     }
     
 }

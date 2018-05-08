@@ -19,9 +19,12 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     private ArrayList <SourceLine> sourceRecord;
     private Stack <FunctionEnvironmentRecord> funcEnvironmentStack;
+    private Stack <Integer> callStackLineNo;
     private int currentLineNo;
+    
     private boolean isContinuing, 
                     isTraceOn;
+    
     private StringBuilder indents,
                           trace; 
     
@@ -38,24 +41,17 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         indents = new StringBuilder();
         isTraceOn = false;
         trace = new StringBuilder();
+        callStackLineNo = new Stack();
     }   
       
     
     @Override
     public void executeProgram(){    
         resumeExecution();
-        
         while(isContinuing){
             executeByteCode();
         }
     }   
-    
-    public void executeCurrentLine(){
-        int prevLine = currentLineNo + 1;
-        while(prevLine != currentLineNo){
-            executeByteCode();
-        }
-    }
     
     public void executeByteCode(){
         if(!isRunning) return;
@@ -72,11 +68,9 @@ public class DebuggerVirtualMachine extends VirtualMachine {
             executeByteCode();
         }
         if(currentSize + 1 == funcEnvironmentStack.size()){
-            int n = 2 + this.getNumArgs();
-            while(n > 0){
+            int n = 2 + getNumArgs();
+            while(n-- > 0)
                 executeByteCode();
-                n--;
-            }
         } 
     }
     
@@ -128,10 +122,38 @@ public class DebuggerVirtualMachine extends VirtualMachine {
         return isTraceOn;
     }
     
+    public void pushCallStack(){
+        callStackLineNo.push(currentLineNo);
+    }
+    
+    public void popCallStack(){
+        callStackLineNo.pop();
+    }
+    
+    public String getCallStack(){
+        StringBuilder builder =  new StringBuilder();
+        builder.append(makeCallLine(funcEnvironmentStack.peek().getFuncName()
+                , currentLineNo));
+        
+        for(int i = callStackLineNo.size() - 1; i >= 0; i--){
+            builder.append(makeCallLine(funcEnvironmentStack.get(i).getFuncName()
+                , callStackLineNo.get(i)));
+        }
+        return builder.toString();
+    }
+    
+    private String makeCallLine(String funcName, int lineNo){
+        StringBuilder builder = new StringBuilder();
+        builder.append(funcName)
+                   .append(" on line: ")
+                   .append(lineNo)
+                   .append("\n");
+        return builder.toString();
+    }
+    
     private String getCurrentFuncName(){
         return this.funcEnvironmentStack.peek().getFuncName();
     }
-    
     
    public void buildCallTrace(){
        if(!isTraceOn) return;
@@ -139,10 +161,21 @@ public class DebuggerVirtualMachine extends VirtualMachine {
                new StringBuilder(indents)
                 .append(getCurrentFuncName())
                 .append("(")
-                .append((getNumArgs() > 0)? super.peekRunStack() : "")
+                .append((getNumArgs() > 0)? parameter() : "")
                 .append(")") 
                 .append("\n") 
        );
+   }
+   
+   private String parameter(){
+       if(this.getNumArgs() == 0) return "";
+       StringBuilder parameters = new StringBuilder();
+       Object [] items = super.runStack.getParameters();
+       for(int i = 0; i < getNumArgs(); i++){
+          parameters.append(items[i]);
+          if(i+1 < getNumArgs()) parameters.append(",");
+       }
+       return parameters.toString();
    }
    
    public void buildReturnTrace(){
@@ -156,8 +189,10 @@ public class DebuggerVirtualMachine extends VirtualMachine {
        );
    }
     
-    public String getTrace(){
-        return trace.toString();
+    public String getCurrentTrace(){
+        StringBuilder returnTrace = trace;
+        trace = new StringBuilder();
+        return returnTrace.toString();
     }
     
     public void setCurrentLineNo(int newLine){
@@ -277,18 +312,7 @@ public class DebuggerVirtualMachine extends VirtualMachine {
     
     
     public String getSourceCode(){
-        int line = 1;
-        StringBuilder sourceCode = new StringBuilder();
-        
-        for(SourceLine sourceLine: sourceRecord){
-            sourceCode.append((isBreakPointSetTo(line)? "*":" "))
-                    .append(sourceLine)
-                    .append((line == currentLineNo)? "\t <-------------------------------":"")
-                    .append("\n");
-            line++;
-        }
-        
-        return sourceCode.toString();
+        return buildSourceFromTo(1, sourceRecord.size() - 1).toString();
     }
     
     private String getSourceLine(int lineNo){
@@ -296,18 +320,20 @@ public class DebuggerVirtualMachine extends VirtualMachine {
                 + sourceRecord.get(lineNo - 1);
     }
     
-    private StringBuilder getFuncBuilder() throws UnInitializedIdException, IntrinsictException{
-        StringBuilder funcBuilder = new StringBuilder();
-        int start = this.funcEnvironmentStack.peek().getFuncStart(), 
-            end = this.funcEnvironmentStack.peek().getFuncEnd();
-
-            for(int i = start; i <= end; i++ ){
-                funcBuilder.append(getSourceLine(i))
+    private StringBuilder buildSourceFromTo(int start, int end){
+        StringBuilder sourceBuilder = new StringBuilder();
+        for(int i = start; i <= end; i++ ){
+                sourceBuilder.append(getSourceLine(i))
                         .append((i == currentLineNo)? 
                                 "\t <-------------------------------":"")
                         .append("\n");
             }
-        return funcBuilder;
+        return sourceBuilder;
+    }
+    
+    private StringBuilder getFuncBuilder() throws UnInitializedIdException, IntrinsictException{
+        return buildSourceFromTo( funcEnvironmentStack.peek().getFuncStart(), 
+                                  funcEnvironmentStack.peek().getFuncEnd() );
     }
     
     public String getCurrentSourceFunc(){ 

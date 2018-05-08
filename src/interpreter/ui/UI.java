@@ -23,8 +23,7 @@ public class UI {
     private DebuggerVirtualMachine DVM;
     
    
-    
-    
+
     public UI(DebuggerVirtualMachine dvm){
         inputReader = new BufferedReader(
                 new InputStreamReader(System.in));
@@ -34,10 +33,10 @@ public class UI {
     public void run(){
         System.out.println(DVM.getSourceCode());
         while(DVM.isRunning()){
-            System.out.println(DVM.getTrace());
             fetchCommand();
             currentCommand.executeTo(DVM); 
             System.out.println(currentCommand.output());
+            System.out.println(DVM.getCurrentTrace());
         }
     }
     
